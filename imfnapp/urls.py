@@ -13,7 +13,7 @@ urlpatterns=[
     path('datatable/',views.datatable,name='datatable'),
     path('datatables/',views.datatables,name='datatables'),
     path('hospitalprofile/',views.hospitalprofile,name='hospitalprofile'),
-    path('/',views.index,name='index'),
+    path('',views.index,name='index'),
     path('ambulanceprofile/',views.ambulanceprofile,name='ambulanceprofile'),
     path('hospital_ambulance_view/',views.hospital_ambulance_view,name='hospital_ambulance_view'),
     path('register_patient/',views.register_patient,name='register_patient'),
@@ -21,10 +21,6 @@ urlpatterns=[
     path('register_doctor/',views.register_doctor,name='register_doctor'),
     path('datatable/',views.doctordatatable,name='datatable'),
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
-<<<<<<< HEAD
     path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view')
-=======
-    path('hospitalsearch/',views.search_hospital,name='hospitalsearch'),
->>>>>>> 50f5c167457a801b6170cbe7ab876cf9267287a0
     
 ]
