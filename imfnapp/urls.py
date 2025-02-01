@@ -20,5 +20,6 @@ urlpatterns=[
     path('profile/',views.profile,name='profile'),
     path('register_doctor/',views.register_doctor,name='register_doctor'),
     path('datatable/',views.doctordatatable,name='datatable'),
-    path('doctorprofile/',views.doctorprofile,name='doctorprofile')
+    path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
+    
 ]
