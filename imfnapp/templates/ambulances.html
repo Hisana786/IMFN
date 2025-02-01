@@ -1,0 +1,29 @@
+{% extends 'hospitalindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Ambulance table</title>
+    </head>
+    <body>
+        <h2>Ambulance data</h2>
+        <table border ="2">
+            <tr>
+                <th>Ambulance_Category</th>
+                <th>Ambulance_Type</th>
+                <th>Vehicle_NO</th>
+                <th>Contact_No</th>
+                <th>Driver_Name</th>
+            </tr>
+            <tr>
+                {% for ambulancess in ambulancess %}
+                <td>{{ambulancess.Ambulance_Category}}</td>
+                <td>{{ambulancess.Ambulance_Type}}</td>
+                <td>{{ambulancess.Vehicle_NO}}</td>
+                <td>{{ambulancess.Contact_No}}</td>
+                <td>{{ambulancess.Driver_Name}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

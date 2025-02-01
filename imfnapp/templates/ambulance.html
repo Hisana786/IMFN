@@ -1,0 +1,17 @@
+{% extends 'ambulanceindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Form Registration</title>
+    </head>
+    <body>
+        <h1>Ambulance Details</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ login.as_p}}
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
+{% endblock %}

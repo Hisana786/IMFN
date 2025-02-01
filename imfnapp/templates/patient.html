@@ -1,0 +1,17 @@
+{% extends 'indexheader.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Form Registration</title>
+    </head>
+    <body>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ login.as_p}}
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
+{% endblock %}
+

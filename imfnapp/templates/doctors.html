@@ -1,0 +1,18 @@
+{% extends 'doctorindex.html' %}
+{% block content %}
+
+<html>
+<head>
+    <title>Form </title>
+</head>
+<body>
+    <h1>Doctor Details</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ login.as_p}}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+{% endblock %}
