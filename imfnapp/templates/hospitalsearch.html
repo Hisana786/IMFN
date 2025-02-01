@@ -1,0 +1,38 @@
+{% extends 'patientindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Search Hospital</title>
+    </head>
+    <body>
+        <div class="search-container">
+        <h1> Search the Hospital</h1>
+        <input type="text" id="search-input" placeholder="Search services" oninput="showQuery()"</div>
+        <button onclick ="searchAction()"> Search </button>
+        </div>
+        <h2>Hospital data</h2>
+        <table border ="2">
+            <tr>
+                <th>Hospital_Name</th>
+                <th>Address</th>
+                <th>District</th>
+                <th>City</th>
+                <th>Contact_No</th>
+                <th>Email</th>
+            </tr>
+            <tr>
+                
+                {% for hospital in hospitals %}
+                 <tr>
+                    <td>{{hospital.Hospital_Name}}</td>
+                    <td>{{hospital.Address}}</td>
+                    <td>{{hospital.District}}</td>
+                    <td>{{hospial.City}}</td>
+                    <td>{{hospital.Contact_No}}</td>
+                    <td>{{hospital.Login_id.Email}}</td>
+                </tr>
+                {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

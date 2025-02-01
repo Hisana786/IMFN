@@ -123,9 +123,9 @@ def doctordatatable(request):
 
 def hospitalprofile(request):
     hospital_id = request.session.get('hospital_id')
+    print(hospital_id)
     hospital_login_data = get_object_or_404(login,id=hospital_id)
     hospital_data = get_object_or_404(hospital,Login_id=hospital_login_data)
-
     if request.method == 'POST':
         form = hospitaleditform(request.POST,instance=hospital_data)
         loginss = logineditform(request.POST,instance=hospital_login_data)
@@ -211,4 +211,10 @@ def doctorprofile(request):
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
     return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
+def search_hospital(request):
+    query=request.GET.get('q','')
+    hospitals=hospital.objects.all()
+    if query:
+        hospitals=hospital.filter(Hospital_Name__icontains=query)
 
+    return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
