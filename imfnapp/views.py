@@ -207,5 +207,11 @@ def doctorprofile(request):
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
-    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
+    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
+
+def hospital_doctor_view(request):
+    doctorss= doctor.objects.all()
+    return render(request,"doctorsdetails.html",{'doctorss':doctorss})
+
+
 

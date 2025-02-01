@@ -1,0 +1,35 @@
+{% extends 'hospitalindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Doctors Details</title>
+    </head>
+    <body>
+        <h2>Doctors Data</h2>
+        <table border =2>
+            <tr>
+                <th>doctor_name</th>
+                <th>photo</th>
+                <th>gender</th>
+                <th>DOB</th>
+                <th>specialisation</th>
+                <th>year_of_experience</th>
+                <th>contact_no</th>
+                <th>hospital_name</th>
+            </tr>
+            <tr>
+                {% for doctorss in doctorss %}
+                <td>{{doctorss.doctor_name}}</td>
+                <td>{{doctorss.photo}}</td>
+                <td>{{doctorss.gender}}</td>
+                <td>{{doctorss.DOB}}</td>
+                <td>{{doctorss.specialisation}}</td>
+                <td>{{doctorss.year_of_experience}}</td>
+                <td>{{doctorss.contact_no}}</td>
+                <td>{{doctorss.hospital_name}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}
