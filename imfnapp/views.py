@@ -15,6 +15,9 @@ def adminform(request):
 def hospital_index(request):
     return render(request,'hospitalindex.html')
 
+def patient_index(request):
+    return render(request,'patientindex.html')
+
 def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
@@ -95,7 +98,7 @@ def hospital_login(request):
                         return redirect('users')
                     elif user.user_type == 'doctor':
                         request.session['doctor_id'] = user.id
-                        return redirect('users')
+                        return redirect('doctor_home')
                 else:
                     messages.error(request, 'Invalid password')
             except login.DoesNotExist:  # Correcting the exception handling
@@ -119,7 +122,7 @@ def doctordatatable(request):
  
 
 def hospitalprofile(request):
-    hospital_id = request.session.get('user_id')
+    hospital_id = request.session.get('hospital_id')
     hospital_login_data = get_object_or_404(login,id=hospital_id)
     hospital_data = get_object_or_404(hospital,Login_id=hospital_login_data)
 
@@ -129,16 +132,16 @@ def hospitalprofile(request):
         if form.is_valid() and loginss.is_valid():
             form.save()
             loginss.save()
-            return redirect('Register_hospital')
+            return redirect('hospital_home')
     else:        
         form = hospitaleditform(instance = hospital_data) 
         loginss = logineditform(instance = hospital_login_data)
     return render(request,"hospitalprofile.html",{'form':form,'loginss':loginss})
 
 def ambulanceprofile(request):
-    ambulance_id = request.session.get('user_id')
+    ambulance_id = request.session.get('ambulance_id')
     ambulance_login_data = get_object_or_404(login,id=ambulance_id)
-    ambulance_data = get_object_or_404(hospital,Login_id=ambulance_login_data)
+    ambulance_data = get_object_or_404(ambulance,Login_id=ambulance_login_data)
 
     if request.method == 'POST':
         form = ambulanceeditform(request.POST,instance=ambulance_data)
@@ -146,7 +149,7 @@ def ambulanceprofile(request):
         if form.is_valid() and loginss.is_valid():
             form.save()
             loginss.save()
-            return redirect('Register_ambulance')
+            return redirect('ambulance_home')
     else:        
         form = ambulanceeditform(instance = ambulance_data) 
         loginss = logineditform(instance = ambulance_login_data)
@@ -168,14 +171,14 @@ def register_patient(request):
             pat=form.save(commit=False)
             pat.Login_id=login_data
             pat.save()
-            return redirect('register_patient')
+            return redirect('patient_home')
     else:        
         form=patientform()
         login=loginform() 
     return render(request,"patient.html",{'form':form,'login':login})
 
 def profile(request):
-    patient_id = request.session.get('user_id')
+    patient_id = request.session.get('patient_id')
     patient_login_data = get_object_or_404(login,id=patient_id)
     patient_data = get_object_or_404(patient,Login_id=patient_login_data)
 
@@ -192,7 +195,7 @@ def profile(request):
     return render(request,"profile.html",{'form':form,'loginss':loginss})
 
 def doctorprofile(request):
-    doctor_id = request.session.get('user_id')
+    doctor_id = request.session.get('doctor_id')
     doctor_login_data = get_object_or_404(login,id=doctor_id)
     doctor_data = get_object_or_404(doctor,login_id=doctor_login_data)
 
