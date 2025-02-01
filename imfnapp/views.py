@@ -207,11 +207,21 @@ def doctorprofile(request):
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
+<<<<<<< HEAD
+    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
+
+def hospital_doctor_view(request):
+    doctorss= doctor.objects.all()
+    return render(request,"doctorsdetails.html",{'doctorss':doctorss})
+
+
+=======
     return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
 def search_hospital(request):
     query=request.GET.get('q','')
     hospitals=hospital.objects.all()
     if query:
         hospitals=hospital.filter(Hospital_Name__icontains=query)
+>>>>>>> 50f5c167457a801b6170cbe7ab876cf9267287a0
 
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
