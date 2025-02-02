@@ -7,6 +7,8 @@ urlpatterns=[
     path('users/',views.userform,name='users'),
     path('ambulance_home/',views.ambulance_index,name='ambulance_home'),
     path('hospital_home/',views.hospital_index,name='hospital_home'),
+    path('patient_home/',views.patient_index,name='patient_home'),
+    path('doctor_home/',views.doctor_index,name='doctor_home'),
     path('Register_hospital/',views.Register_hospital,name='Register_hospital'),
     path('Register_ambulance/',views.Register_ambulance,name='Register_ambulance'),
     path('hospital_login/',views.hospital_login,name='hospital_login'),
@@ -21,10 +23,6 @@ urlpatterns=[
     path('register_doctor/',views.register_doctor,name='register_doctor'),
     path('datatable/',views.doctordatatable,name='datatable'),
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
-<<<<<<< HEAD
-    path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view')
-=======
     path('hospitalsearch/',views.search_hospital,name='hospitalsearch'),
->>>>>>> 50f5c167457a801b6170cbe7ab876cf9267287a0
     
 ]
