@@ -54,7 +54,7 @@
                                         <nav>
                                             <ul id="navigation">
                                                 <li><a href="index.html">home</a></li>
-                                                <li><a href="{% url 'profile' %}">profile</a></li>
+                                                
                                                 <li><a href="about.html">About</a></li>
                                                 <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                                     <ul class="submenu">
@@ -65,13 +65,13 @@
                                                 <li><a href="{% url 'register_patient' %}">Registration</li></a>
                                                     
                                             
-                                                <li><a href="{% url 'profile'%}">Profile</a></li>
+                                                <li><a href="{% url 'doctorprofile' %}">Profile</a></li>
                                             </ul>
                                         </nav>
                                     </div>
                                     <div class="book_room">
                                         <div class="book_btn">
-                                            <a class="popup-with-form" href="#test-form">Book Appointment</a>
+                                            <a href="{% url 'hospital_login' %}">Login</a>
                                         </div>
                                     </div>
                                 </div>

@@ -13,13 +13,15 @@ urlpatterns=[
     path('datatable/',views.datatable,name='datatable'),
     path('datatables/',views.datatables,name='datatables'),
     path('hospitalprofile/',views.hospitalprofile,name='hospitalprofile'),
-    path('/',views.index,name='index'),
+    path('',views.index,name='index'),
     path('ambulanceprofile/',views.ambulanceprofile,name='ambulanceprofile'),
     path('hospital_ambulance_view/',views.hospital_ambulance_view,name='hospital_ambulance_view'),
     path('register_patient/',views.register_patient,name='register_patient'),
     path('profile/',views.profile,name='profile'),
     path('register_doctor/',views.register_doctor,name='register_doctor'),
-    path('datatable/',views.doctordatatable,name='datatable'),
+    path('doctordatatable/',views.doctordatatable,name='datatable'),
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
+    path('doctor_home/',views.doctor_index,name='doctor_home'),
+    path('patient_home/',views.patient_index,name='patient_home')
     
 ]

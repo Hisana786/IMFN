@@ -84,6 +84,8 @@ class doctorprofileform(forms.ModelForm):
             'DOB' : forms.TextInput(attrs={'type':'date'})
         }              
 
-
+class logincheckforms(forms.Form):
+    Email=forms.CharField(max_length=100, required=True)
+    Password=forms.CharField(widget=forms.PasswordInput, required=True)
 
 
