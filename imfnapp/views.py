@@ -15,6 +15,9 @@ def adminform(request):
 def hospital_index(request):
     return render(request,'hospitalindex.html')
 
+def patient_index(request):
+    return render(request,'patientindex.html')
+
 def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
@@ -129,7 +132,6 @@ def hospitalprofile(request):
     print(hospital_id)
     hospital_login_data = get_object_or_404(login,id=hospital_id)
     hospital_data = get_object_or_404(hospital,Login_id=hospital_login_data)
-
     if request.method == 'POST':
         form = hospitaleditform(request.POST,instance=hospital_data)
         loginss = logineditform(request.POST,instance=hospital_login_data)
@@ -144,10 +146,13 @@ def hospitalprofile(request):
 
 def ambulanceprofile(request):
     ambulance_id = request.session.get('ambulance_id')
+
     print(ambulance_id)
+
+
     ambulance_login_data = get_object_or_404(login,id=ambulance_id)
     ambulance_data = get_object_or_404(ambulance,Login_id=ambulance_login_data)
-
+ 
     if request.method == 'POST':
         form = ambulanceeditform(request.POST,instance=ambulance_data)
         loginss = logineditform(request.POST,instance=ambulance_login_data)
@@ -184,7 +189,10 @@ def register_patient(request):
 
 def profile(request):
     patient_id = request.session.get('patient_id')
+ 
     print(patient_id)
+
+
     patient_login_data = get_object_or_404(login,id=patient_id)
     patient_data = get_object_or_404(patient,Login_id=patient_login_data)
 
@@ -202,7 +210,10 @@ def profile(request):
 
 def doctorprofile(request):
     doctor_id = request.session.get('doctor_id')
+
     print(doctor_id)
+
+
     doctor_login_data = get_object_or_404(login,id=doctor_id)
     doctor_data = get_object_or_404(doctor,login_id=doctor_login_data)
 
@@ -218,4 +229,13 @@ def doctorprofile(request):
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
     return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
+def search_hospital(request):
+    query=request.GET.get('q','')
+    hospitals=hospital.objects.all()
+    if query:
+        hospitals=hospital.filter(Hospital_Name__icontains=query)
 
+    return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
+
+def hospital_doctor_view(request):
+    return render(request,'doctordetails.html')    
