@@ -188,7 +188,7 @@ def profile(request):
         if form.is_valid() and loginss.is_valid():
             form.save()
             loginss.save()
-            return redirect('users')
+            return redirect('patient_home')
     else: 
         form = profileform(instance = patient_data) 
         loginss = logineditform(instance = patient_login_data)
@@ -206,7 +206,7 @@ def doctorprofile(request):
         if form.is_valid() and loginss.is_valid():
             form.save()
             loginss.save()
-            return redirect('users')
+            return redirect('docter_home')
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
@@ -218,3 +218,5 @@ def search_hospital(request):
         hospitals=hospital.filter(Hospital_Name__icontains=query)
 
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
+def hospital_doctor_view(request):
+    return render (request,"doctorsdetails.html")
