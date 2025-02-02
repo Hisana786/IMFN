@@ -21,7 +21,7 @@ urlpatterns=[
     path('register_doctor/',views.register_doctor,name='register_doctor'),
     path('datatable/',views.doctordatatable,name='datatable'),
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
-    path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view')
+    path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view'),
     path('hospitalsearch/',views.search_hospital,name='hospitalsearch'),
     path('patient_home/',views.patient_index,name='patient_home'),
 ]

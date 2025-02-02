@@ -210,7 +210,9 @@ def doctorprofile(request):
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
-    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
+    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
+    
+      
 def search_hospital(request):
     query=request.GET.get('q','')
     hospitals=hospital.objects.all()
@@ -218,3 +220,8 @@ def search_hospital(request):
         hospitals=hospital.filter(Hospital_Name__icontains=query)
 
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
+
+def hospital_doctor_view(request):
+    return render(request,'doctorsdetails',{'doctorss':doctorss})    
+
+
