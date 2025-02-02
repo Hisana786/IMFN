@@ -15,14 +15,14 @@ def adminform(request):
 def hospital_index(request):
     return render(request,'hospitalindex.html')
 
+def patient_index(request):
+    return render(request,'patientindex.html')
+
 def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
 def doctor_index(request):
     return render(request,'doctorindex.html')
-
-def patient_index(request):
-    return render(request,'patientindex.html')
 
 def userform(request):
     return render(request,'user.html')   
@@ -213,10 +213,21 @@ def doctorprofile(request):
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
-    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
+    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
+
+def hospital_doctor_view(request):
+    return render (request,"doctorsdetails.html")  
+
 def search_hospital(request):
     query=request.GET.get('q','')
     hospitals=hospital.objects.all()
     if query:
         hospitals=hospital.filter(Hospital_Name__icontains=query)
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
+
+
+def hos_search(request):
+    hospitals=hospital.objects.all()
+    return render(request,'hospitalsearch.html',{'hospitals':hospitals})
+
+
