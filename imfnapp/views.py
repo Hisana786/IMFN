@@ -15,6 +15,9 @@ def adminform(request):
 def hospital_index(request):
     return render(request,'hospitalindex.html')
 
+def patient_index(request):
+    return render(request,'patientindex.html')
+
 def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
@@ -95,7 +98,7 @@ def hospital_login(request):
                         return redirect('users')
                     elif user.user_type == 'doctor':
                         request.session['doctor_id'] = user.id
-                        return redirect('users')
+                        return redirect('doctor_home')
                 else:
                     messages.error(request, 'Invalid password')
             except login.DoesNotExist:  # Correcting the exception handling
@@ -168,7 +171,7 @@ def register_patient(request):
             pat=form.save(commit=False)
             pat.Login_id=login_data
             pat.save()
-            return redirect('register_patient')
+            return redirect('patient_home')
     else:        
         form=patientform()
         login=loginform() 
@@ -207,10 +210,11 @@ def doctorprofile(request):
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
-    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
-
-def hospital_doctor_view(request):
-    doctorss= doctor.objects.all()
-    return render(request,"doctorsdetails.html",{'doctorss':doctorss})
+    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
+def search_hospital(request):
+    query=request.GET.get('q','')
+    hospitals=hospital.objects.all()
+    if query:
+        hospitals=hospital.filter(Hospital_Name__icontains=query)
 
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
