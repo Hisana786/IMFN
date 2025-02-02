@@ -119,10 +119,10 @@ def doctordatatable(request):
  
 
 def hospitalprofile(request):
-    hospital_id = request.session.get('hostipal_id')
+    hospital_id = request.session.get('hospital_id')
+    print(hospital_id)
     hospital_login_data = get_object_or_404(login,id=hospital_id)
     hospital_data = get_object_or_404(hospital,Login_id=hospital_login_data)
-
     if request.method == 'POST':
         form = hospitaleditform(request.POST,instance=hospital_data)
         loginss = logineditform(request.POST,instance=hospital_login_data)
