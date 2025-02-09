@@ -11,7 +11,7 @@
     <title>DataTables | Gentelella</title>
 
     <!-- Bootstrap -->
-    <link href="{% static 'admin/cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css' %}">
+    <link href="{% static 'admin?cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css' %}">
     <link href="{% static 'admin/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{% static 'admin/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
@@ -246,7 +246,7 @@
                       </li>
                       <li class="nav-item">
                         <a class="dropdown-item">
-                          <span class="image"><img src="{% static 'admin/images/img.jpg' %}" alt="Profile Image" /></spa{' %}% static 'admin
+                          <span class="image"><img src="{% static 'admin/images/img.jpg' %}" alt="Profile Image" /></span>
                           <span>
                             <span>John Smith</span>
                             <span class="time">3 mins ago</span>
@@ -297,7 +297,6 @@
             <div class="row">
               
 
-              
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
@@ -327,37 +326,25 @@
                     <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
-                          <th>Doctor Name</th>
+                          <th>Name</th>
+                          <th>Address</th>
                           <th>Gender</th>
                           <th>DOB</th>
-                          <th>Specialisation</th>
-                          <th>Year Of Experience</th>
                           <th>Contact No</th>
-                          <th>Hospital Name</th>
-                          <th>Photo</th>
                           <th>Email</th>
-                          
-                          
                         </tr>
                       </thead>
-
-
+                     
                       <tbody>
-                        {% for doctor in doctors %} 
+                        {% for patient in patients %}
                         <tr>
-                          <td>{{doctor.doctor_name}}</td>
-                          <td>{{doctor.gender}}</td>
-                          <td>{{doctor.DOB}}</td>
-                          <td>{{doctor.specialisation}}</td>
-                          <td>{{doctor.year_of_experience}}</td>
-                          <td>{{doctor.contact_no}}</td>
-                          <td>{{doctor.hospital_name}}</td>
-                          <td>{{doctor.photo}}</td>
-                          
-                          <td>{{doctor.Login_id.Email}}</td>
-                          
-                          
-                          
+                          <td>{{patient.name}}</td>
+                          <td>{{patient.address}}</td>
+                          <td>{{patient.gender}}</td>
+                          <td>{{patient.DOB}}</td>
+                          <td>{{patient.contact_no}}</td>
+                          <td>{{patient.Login_id.Email}}</td>
+                        
                         </tr>
                         {% endfor %}
                       </tbody>

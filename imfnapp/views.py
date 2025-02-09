@@ -121,7 +121,13 @@ def datatables(request):
 
 def doctordatatable(request):
     doctors=doctor.objects.all()
-    return render(request,'datatable.html',{'doctors':doctors})     
+    return render(request,'datatable.html',{'doctors':doctors}) 
+
+def patientdatatable(request):
+    patients=patient.objects.all()
+    return render(request,'patientdatatable.html',{'patients':patients}) 
+
+
  
 
 def hospitalprofile(request):
@@ -217,17 +223,4 @@ def doctorprofile(request):
 
 def hospital_doctor_view(request):
     return render (request,"doctorsdetails.html")  
-
-def search_hospital(request):
-    query=request.GET.get('q','')
-    hospitals=hospital.objects.all()
-    if query:
-        hospitals=hospital.filter(Hospital_Name__icontains=query)
-    return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
-
-
-def hos_search(request):
-    hospitals=hospital.objects.all()
-    return render(request,'hospitalsearch.html',{'hospitals':hospitals})
-
 
