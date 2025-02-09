@@ -1,11 +1,15 @@
-{% extends 'indexheader.html' %}
+{% extends 'hospatientindex.html' %}
 {% block content %}
 <html>
     <head>
         <title>Form Registration</title>
     </head>
     <body>
+<<<<<<< HEAD
         <h1>Patient Details </h1>
+=======
+        <h1>Patient Details</h1>
+>>>>>>> bee9aa1e4147a96af318cdb62a46e134abbe2b69
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}

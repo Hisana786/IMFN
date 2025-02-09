@@ -47,7 +47,7 @@ class doctor(models.Model):
     year_of_experience=models.CharField(max_length=20)
     contact_no=models.CharField(max_length=15)
     hospital_name=models.CharField(max_length=30)
-    login_id=models.ForeignKey('login',on_delete=models.CASCADE,null=True,blank=True)
+    Login_id=models.ForeignKey('login',on_delete=models.CASCADE,null=True,blank=True)
 
 
 
