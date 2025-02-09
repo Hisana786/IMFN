@@ -25,31 +25,22 @@ def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
 def doctor_index(request):
-
-    return render(request,'doctorindex.html')
-
     return render(request,'doctorindex.html')    
-    return render(request,'doctorindex.html') 
+    # return render(request,'doctorindex.html') 
 
-def patient_index(request):
-    return render(request,'patientindex.html')       
-
-def userform(request):
-    return render(request,'user.html')   
-
-def Register_hospital(request): 
-    if request.method == 'POST':
-        form=hospitalform(request.POST)
-        login=loginform(request.POST)
-        if form.is_valid() and login.is_valid():
-            login_data=login.save(commit=False)
-            login_data.user_type='hospital'
-            login_data.save()
-            hosp=form.save(commit=False)
-            hosp.Login_id=login_data
-            hosp.save()
-            return redirect('hospital_home')
-    else:        
+    def Register_hospital(request): 
+        if request.method == 'POST':
+            form=hospitalform(request.POST)
+            login=loginform(request.POST)
+            if form.is_valid() and login.is_valid():
+                login_data=login.save(commit=False)
+                login_data.user_type='hospital'
+                login_data.save()
+               hosp=form.save(commit=False)
+               hosp.Login_id=login_data
+               hosp.save()
+             return redirect('hospital_home')
+     else:        
         form=hospitalform() 
         login=loginform()
     return render(request,"hospital.html",{'form':form,'login':login})
@@ -243,12 +234,22 @@ def doctorprofile(request):
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
+
+    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
+
+def hospital_doctor_view(request):
+    return render(request,'doctorsdetails.html')
+
+
     return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
 
 
 def hospital_doctor_view(request):
     return render (request,"doctorsdetails.html")  
 
+
+# def hospital_doctor_view(request):
+    # return render (request,"doctorsdetails.html")  
 
 
 def search_hospital(request):
