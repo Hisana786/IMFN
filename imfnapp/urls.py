@@ -7,6 +7,8 @@ urlpatterns=[
     path('users/',views.userform,name='users'),
     path('ambulance_home/',views.ambulance_index,name='ambulance_home'),
     path('hospital_home/',views.hospital_index,name='hospital_home'),
+    path('patient_home/',views.patient_index,name='patient_home'),
+    path('doctor_home/',views.doctor_index,name='doctor_home'),
     path('Register_hospital/',views.Register_hospital,name='Register_hospital'),
     path('Register_ambulance/',views.Register_ambulance,name='Register_ambulance'),
     path('hospital_login/',views.hospital_login,name='hospital_login'),
@@ -20,6 +22,12 @@ urlpatterns=[
     path('profile/',views.profile,name='profile'),
     path('register_doctor/',views.register_doctor,name='register_doctor'),
     path('doctordatatable/',views.doctordatatable,name='datatable'),
+<<<<<<< HEAD
+    path('patientdatatable/',views.patientdatatable,name='patientdatatable'),
+    path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
+    path('patient_home/',views.patient_index,name='patient_home'),
+    path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view'),
+=======
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
     path('doctor_home/',views.doctor_index,name='doctor_home'),
     path('patient_home/',views.patient_index,name='patient_home'),
@@ -31,5 +39,9 @@ urlpatterns=[
     path('hospitalsearch/',views.search_hospital,name='hospitalsearch'),
     path('patient_home/',views.patient_index,name='patient_home'),
     path('doctor_home/',views.doctor_index,name='doctor_home')
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2924dd09f17ea99211f666468187297ef15a1db1
+>>>>>>> bee9aa1e4147a96af318cdb62a46e134abbe2b69
 ]
