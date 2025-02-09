@@ -236,6 +236,13 @@ def doctorprofile(request):
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
+
+    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
+
+def hospital_doctor_view(request):
+    return render(request,'doctorsdetails.html')
+
+
     return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
 
 # def hospital_doctor_view(request):
@@ -256,3 +263,11 @@ def hospital_doctor_view(request):
 
 
     # return render(request,'doctordetails.html')    
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 2924dd09f17ea99211f666468187297ef15a1db1
+>>>>>>> bee9aa1e4147a96af318cdb62a46e134abbe2b69
+>>>>>>> 82a0e993f1a5b3d7006fbee2609cd4498dabf6cc
