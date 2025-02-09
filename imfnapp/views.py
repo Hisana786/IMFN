@@ -22,15 +22,11 @@ def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
 def doctor_index(request):
-<<<<<<< HEAD
-    return render(request,'doctorindex.html')
-=======
     return render(request,'doctorindex.html')    
-    return render(request,'doctorindex.html') 
+    # return render(request,'doctorindex.html') 
 
 def patient_index(request):
-    return render(request,'patientindex.html')       
->>>>>>> 2924dd09f17ea99211f666468187297ef15a1db1
+    # return render(request,'patientindex.html')       
 
 def userform(request):
     return render(request,'user.html')   
@@ -235,21 +231,16 @@ def doctorprofile(request):
         if form.is_valid() and loginss.is_valid():
             form.save()
             loginss.save()
-<<<<<<< HEAD
-=======
             return redirect('')
->>>>>>> 2924dd09f17ea99211f666468187297ef15a1db1
             return redirect('doctor_home')
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
     return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
 
-<<<<<<< HEAD
-def hospital_doctor_view(request):
-    return render (request,"doctorsdetails.html")  
+# def hospital_doctor_view(request):
+    # return render (request,"doctorsdetails.html")  
 
-=======
 
 def search_hospital(request):
     query=request.GET.get('q','')
@@ -265,4 +256,3 @@ def hospital_doctor_view(request):
 
 
     # return render(request,'doctordetails.html')    
->>>>>>> 2924dd09f17ea99211f666468187297ef15a1db1

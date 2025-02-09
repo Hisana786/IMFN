@@ -22,18 +22,11 @@ urlpatterns=[
     path('profile/',views.profile,name='profile'),
     path('register_doctor/',views.register_doctor,name='register_doctor'),
     path('doctordatatable/',views.doctordatatable,name='datatable'),
-<<<<<<< HEAD
     path('patientdatatable/',views.patientdatatable,name='patientdatatable'),
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
     path('patient_home/',views.patient_index,name='patient_home'),
     path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view'),
-=======
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
-    path('doctor_home/',views.doctor_index,name='doctor_home'),
-    path('patient_home/',views.patient_index,name='patient_home'),
-    path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view'),
     path('hospitalsearch/',views.search_hospital,name='hospitalsearch'),
-    path('patient_home/',views.patient_index,name='patient_home'),
     path('doctor_home/',views.doctor_index,name='doctor_home')
->>>>>>> 2924dd09f17ea99211f666468187297ef15a1db1
 ]
