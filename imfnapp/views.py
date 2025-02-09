@@ -229,13 +229,7 @@ def doctorprofile(request):
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
     return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
-def search_hospital(request):
-    query=request.GET.get('q','')
-    hospitals=hospital.objects.all()
-    if query:
-        hospitals=hospital.filter(Hospital_Name__icontains=query)
-
-    return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
 
 def hospital_doctor_view(request):
-    return render(request,'doctordetails.html')    
+    return render(request,'doctorsdetails.html')
+
