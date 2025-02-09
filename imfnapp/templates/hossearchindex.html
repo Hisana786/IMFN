@@ -35,15 +35,23 @@
 
 
     <!-- header-start -->
+   <<header>
     <header>
+
         <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-3 col-lg-3">
+
+                            <div class="logo-img"> -->
+                                <!-- <a href="index.html"> -->
+                                    <!-- <img src="{% static 'user/img/logo.png' %}" alt="">
+
                             <div class="logo-img">
                                 <a href="index.html">
                                     <img src="{% static 'user/img/logo.png' %}" alt="">
+
                                 </a>
                             </div>
                         </div>
@@ -52,10 +60,17 @@
                                 <div class="menu_wrap_inner d-flex align-items-center justify-content-end">
                                     <div class="main-menu">
                                         <nav>
+
+                                            <ul id="navigation"> -->
+                                                <!-- <li><a href="{% url 'hospital_home' %}">home</a></li>
+                                                <li><a href="{% url 'hospital_ambulance_view' %}">Ambulance</a></li> -->
+                                                <!-- <li><a href="#">blog <i class="ti-angle-down"></i></a>
+
                                             <ul id="navigation">
-                                                <!-- <li><a href="{% url 'hospital_doctor_view' %}">Doctor</a></li> -->
-                                                <!-- <li><a href="{% url 'hospital_ambulance_view' %}">Ambulance</a></li> -->
+                                                 <li><a href="{% url 'hospital_doctor_view' %}">Doctor</a></li> -->
+                                                <!-- <li><a href="{% url 'hospital_ambulance_view' %}">Ambulance</a></li>
                                                 <li><a href="#">blog <i class="ti-angle-down"></i></a>
+
                                                     <ul class="submenu">
                                                         <li><a href="">Ambulance</a></li>
                                                         <li><a href="single-blog.html">single-blog</a></li>
@@ -63,11 +78,15 @@
                                                 </li>
                                                 <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                     <ul class="submenu">
-                                                        <li><a href="department.html">Deportment</a></li>
+                                                        <li><a href="department.html">Deportment</a></li> 
                                                         <li><a href="elements.html">elements</a></li>
                                                     </ul>
                                                 </li>
-                                                <!-- <li><a href="{% url 'hospitalprofile' %}">Profile</a></li> -->
+
+                                        
+
+                                                <li><a href="{% url 'hospitalprofile' %}">Profile</a></li>
+
                                             </ul>
                                         </nav>
                                     </div>
@@ -85,12 +104,21 @@
                     </div>
                 </div>
             </div>
+
+        </div> 
+    <!-- </header>
+     -->
+    <!-- header-end -->
+      <!-- bradcam_area_start  -->
+    <!-- <div class="bradcam_area breadcam_bg">
+
         </div>
     </header>
     
-    <!-- header-end -->
+     header-end -->
       <!-- bradcam_area_start  -->
     <div class="bradcam_area breadcam_bg">
+
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -100,14 +128,22 @@
                 </div>
             </div>
         </div>
+
+    </div> 
+
     </div>
+
     <!-- bradcam_area_end  -->
 {% block content %}
 
 
 
 {% endblock %}
+
+<!-- <footer class="footer">
+=======
 <footer class="footer">
+
     <div class="footer_top">
         <div class="container">
             <div class="row">
@@ -188,9 +224,15 @@
             <div class="row">
                 <div class="bordered_1px "></div>
                 <div class="col-xl-12">
+<<<<<<< HEAD
+                    <p class="copy_right text-center"> -->
+                        <p>Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+<!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
+=======
                     <p class="copy_right text-center">
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </p>
                 </div>
@@ -202,7 +244,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- link that opens popup -->
 
 <!-- form itself end-->
+
+<!-- <form id="test-form" class="white-popup-block mfp-hide">
+
 <form id="test-form" class="white-popup-block mfp-hide">
+
     <div class="popup_box ">
         <div class="popup_inner">
             <h3>
@@ -245,11 +291,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             </form>
         </div>
     </div>
-</form>
+
+</form> -->
 <!-- form itself end -->
 
 <!-- JS here -->
+<!-- <script src="{% static 'user/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+=======
+</form>
+form itself end -->
+
+<!-- JS here -->
 <script src="{% static 'user/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+
 <script src="{% static 'user/js/vendor/jquery-1.12.4.min.js' %}"></script>
 <script src="{% static 'user/js/popper.min.js' %}"></script>
 <script src="{% static 'user/js/bootstrap.min.js' %}"></script>
@@ -266,9 +320,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{% static 'user/js/jquery.slicknav.min.js' %}"></script>
 <script src="{% static 'user/js/jquery.magnific-popup.min.js' %}"></script>
 <script src="{% static 'user/js/plugins.js' %}"></script>
-<script src="{% static 'user/js/gijgo.min.js' %}"></script>
+
+<script src="{% static 'user/js/gijgo.min.js' %}"></script> 
 <!--contact js-->
+<!-- <script src="{% static 'user/js/contact.js'%}"></script>
+=======
+<script src="{% static 'user/js/gijgo.min.js' %}"></script>
+contact js-->
 <script src="{% static 'user/js/contact.js'%}"></script>
+
 <script src="{% static 'user/js/jquery.ajaxchimp.min.js'%}"></script>
 <script src="{% static 'user/js/jquery.form.js'%}"></script>
 <script src="{% static 'user/js/jquery.validate.min.js'%}"></script>
@@ -289,9 +349,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             rightIcon: '<span class="fa fa-clock-o"></span>'
         }
     });
-$(document).ready(function() {
+$(document).ready (function() {
 $('.js-example-basic-multiple').select2();
-});
+})
 </script>
 </body>
 

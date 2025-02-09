@@ -15,6 +15,9 @@ def adminform(request):
 def hospital_index(request):
     return render(request,'hospitalindex.html')
 
+def doctor_index(request):
+    return render(request,'doctorindex.html')
+
 def patient_index(request):
     return render(request,'patientindex.html')
 
@@ -23,30 +26,24 @@ def ambulance_index(request):
 
 def doctor_index(request):
     return render(request,'doctorindex.html')    
-    return render(request,'doctorindex.html') 
-
-def patient_index(request):
-    return render(request,'patientindex.html')       
-
-def userform(request):
-    return render(request,'user.html')   
+    # return render(request,'doctorindex.html') 
 
 def Register_hospital(request): 
-    if request.method == 'POST':
-        form=hospitalform(request.POST)
-        login=loginform(request.POST)
-        if form.is_valid() and login.is_valid():
-            login_data=login.save(commit=False)
-            login_data.user_type='hospital'
-            login_data.save()
-            hosp=form.save(commit=False)
-            hosp.Login_id=login_data
-            hosp.save()
+        if request.method == 'POST':
+            form=hospitalform(request.POST)
+            login=loginform(request.POST)
+            if form.is_valid() and login.is_valid():
+                login_data=login.save(commit=False)
+                login_data.user_type='hospital'
+                login_data.save()
+                hosp=form.save(commit=False)
+                hosp.Login_id=login_data
+                hosp.save()
             return redirect('hospital_home')
-    else:        
-        form=hospitalform() 
-        login=loginform()
-    return render(request,"hospital.html",{'form':form,'login':login})
+        else:        
+            form=hospitalform() 
+            login=loginform()
+        return render(request,"hospital.html",{'form':form,'login':login})
 
 def Register_ambulance(request):
     if request.method == 'POST':
@@ -125,7 +122,13 @@ def datatables(request):
 
 def doctordatatable(request):
     doctors=doctor.objects.all()
-    return render(request,'datatable.html',{'doctors':doctors})     
+    return render(request,'datatable.html',{'doctors':doctors}) 
+
+def patientdatatable(request):
+    patients=patient.objects.all()
+    return render(request,'patientdatatable.html',{'patients':patients}) 
+
+
  
 
 def hospitalprofile(request):
@@ -190,10 +193,7 @@ def register_patient(request):
 
 def profile(request):
     patient_id = request.session.get('patient_id')
- 
     print(patient_id)
-
-
     patient_login_data = get_object_or_404(login,id=patient_id)
     patient_data = get_object_or_404(patient,Login_id=patient_login_data)
 
@@ -211,26 +211,21 @@ def profile(request):
 
 def doctorprofile(request):
     doctor_id = request.session.get('doctor_id')
-
     print(doctor_id)
-
-
     doctor_login_data = get_object_or_404(login,id=doctor_id)
-    doctor_data = get_object_or_404(doctor,login_id=doctor_login_data)
+    doctor_data = get_object_or_404(doctor,Login_id=doctor_login_data)
 
     if request.method == 'POST':
-        print('hi')
         form = doctorprofileform(request.POST,instance=doctor_data)
         loginss = loginform(request.POST,instance=doctor_login_data)
         if form.is_valid() and loginss.is_valid():
             form.save()
             loginss.save()
-            return redirect('')
             return redirect('doctor_home')
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
-    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
+        return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
 
 
 def search_hospital(request):
@@ -238,12 +233,8 @@ def search_hospital(request):
     hospitals=hospital.objects.all()
     if query:
         hospitals=hospital.filter(Hospital_Name__icontains=query)
-
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
 
 def hospital_doctor_view(request):
     doctorss=doctor.objects.all()
-    return render(request,'doctorsdetails.html',{'doctorss':doctorss})    
-
-
-    # return render(request,'doctordetails.html')    
+    return render(request,'doctorsdetails.html',{'doctorss':doctorss})       
