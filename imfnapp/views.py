@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import login,hospital,ambulance, patient,doctor
-from .forms import hospitalform,loginform,ambulanceform,logincheckform,hospitaleditform,ambulanceeditform,logineditform, patientform, profileform,doctorform,doctorprofileform
+from .forms import hospitalform,loginform,ambulanceform,logincheckform,hospitaleditform,ambulanceeditform,logineditform, patientform, profileform,doctorform,doctorprofileform,logincheckforms
 
 def index(request):
     return render(request,'index.html')
@@ -22,7 +22,14 @@ def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
 def doctor_index(request):
+<<<<<<< HEAD
     return render(request,'doctorindex.html')    
+=======
+    return render(request,'doctorindex.html') 
+
+def patient_index(request):
+    return render(request,'patientindex.html')       
+>>>>>>> 164d02691e8bf6bb9829b2f13ae1ee0d1c9ad5c7
 
 def userform(request):
     return render(request,'user.html')   
@@ -143,9 +150,13 @@ def hospitalprofile(request):
 
 def ambulanceprofile(request):
     ambulance_id = request.session.get('ambulance_id')
+
+    print(ambulance_id)
+
+
     ambulance_login_data = get_object_or_404(login,id=ambulance_id)
     ambulance_data = get_object_or_404(ambulance,Login_id=ambulance_login_data)
-
+ 
     if request.method == 'POST':
         form = ambulanceeditform(request.POST,instance=ambulance_data)
         loginss = logineditform(request.POST,instance=ambulance_login_data)
@@ -182,6 +193,10 @@ def register_patient(request):
 
 def profile(request):
     patient_id = request.session.get('patient_id')
+ 
+    print(patient_id)
+
+
     patient_login_data = get_object_or_404(login,id=patient_id)
     patient_data = get_object_or_404(patient,Login_id=patient_login_data)
 
@@ -199,6 +214,10 @@ def profile(request):
 
 def doctorprofile(request):
     doctor_id = request.session.get('doctor_id')
+
+    print(doctor_id)
+
+
     doctor_login_data = get_object_or_404(login,id=doctor_id)
     doctor_data = get_object_or_404(doctor,login_id=doctor_login_data)
 
@@ -210,6 +229,7 @@ def doctorprofile(request):
             form.save()
             loginss.save()
             return redirect('')
+            return redirect('doctor_home')
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
@@ -229,3 +249,4 @@ def hospital_doctor_view(request):
     return render(request,'doctorsdetails.html',{'doctorss':doctorss})    
 
 
+    # return render(request,'doctordetails.html')    
