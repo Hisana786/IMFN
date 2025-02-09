@@ -22,6 +22,7 @@ def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
 def doctor_index(request):
+    return render(request,'doctorindex.html')    
     return render(request,'doctorindex.html') 
 
 def patient_index(request):
@@ -224,12 +225,33 @@ def doctorprofile(request):
         if form.is_valid() and loginss.is_valid():
             form.save()
             loginss.save()
+            return redirect('')
             return redirect('doctor_home')
     else:        
         form = doctorprofileform(instance = doctor_data) 
         loginss = loginform(instance = doctor_login_data)
+
     return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})    
 
 def hospital_doctor_view(request):
     return render(request,'doctorsdetails.html')
+
+
+    return render(request,"doctorprofile.html",{'form':form,'loginss':loginss})  
+
+
+def search_hospital(request):
+    query=request.GET.get('q','')
+    hospitals=hospital.objects.all()
+    if query:
+        hospitals=hospital.filter(Hospital_Name__icontains=query)
+
+    return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
+
+def hospital_doctor_view(request):
+    doctorss=doctor.objects.all()
+    return render(request,'doctorsdetails.html',{'doctorss':doctorss})    
+
+
+    # return render(request,'doctordetails.html')    
 

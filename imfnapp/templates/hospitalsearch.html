@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 {% extends 'hospitalindex.html' %}
+=======
+{% extends 'hossearchindex.html' %}
+>>>>>>> 2924dd09f17ea99211f666468187297ef15a1db1
 {% block content %}
 <html>
     <head>
@@ -6,6 +10,7 @@
         
     </head>
     <body>
+
         <div class="search-container">
         <h1> Search the Hospital</h1>
         <input type="text" id="search-input" placeholder="Search services" oninput="showQuery()"</div>
@@ -13,6 +18,9 @@
        
         
         </div>
+
+        
+
         <h2>Hospital data</h2>
     
        
@@ -38,7 +46,9 @@
                 </tr>
                 {% endfor %}
         </table>
+
        
+
     </body>
 </html>
 {% endblock %}
