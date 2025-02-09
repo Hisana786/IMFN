@@ -22,14 +22,11 @@ def ambulance_index(request):
     return render(request,'ambulanceindex.html')
 
 def doctor_index(request):
-<<<<<<< HEAD
     return render(request,'doctorindex.html')    
-=======
     return render(request,'doctorindex.html') 
 
 def patient_index(request):
     return render(request,'patientindex.html')       
->>>>>>> 164d02691e8bf6bb9829b2f13ae1ee0d1c9ad5c7
 
 def userform(request):
     return render(request,'user.html')   
