@@ -6,6 +6,7 @@ urlpatterns= [
     path('admins/',views.adminform,name='admins'),
     path('users/',views.userform,name='users'),
     path('ambulance_home/',views.ambulance_index,name='ambulance_home'),
+    path('doctor_home/',views.doctor_index,name='doctor_home'),
     path('hospital_home/',views.hospital_index,name='hospital_home'),
     path('Register_hospital/',views.Register_hospital,name='Register_hospital'),
     path('Register_ambulance/',views.Register_ambulance,name='Register_ambulance'),
@@ -23,5 +24,7 @@ urlpatterns= [
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
     path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view'),
     path('hospitalsearch/',views.search_hospital,name='hospitalsearch'),
-    path('patient_home/',views.patient_index,name='patient_home')
-]
+    path('patient_home/',views.patient_index,name='patient_home'),
+             ]
+
+

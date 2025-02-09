@@ -15,6 +15,9 @@ def adminform(request):
 def hospital_index(request):
     return render(request,'hospitalindex.html')
 
+def doctor_index(request):
+    return render(request,'doctorindex.html')
+
 def patient_index(request):
     return render(request,'patientindex.html')
 
@@ -69,7 +72,7 @@ def register_doctor(request):
             doc=form.save(commit=False)
             doc.login_id=login_data
             doc.save()
-            return redirect('users')
+            return redirect('doctor_home')
     else:        
         form=doctorform()
         login=loginform()
@@ -95,7 +98,7 @@ def hospital_login(request):
                         return redirect('ambulance_home')
                     elif user.user_type == 'patient':
                         request.session['patient_id'] = user.id
-                        return redirect('users')
+                        return redirect('patient_home')
                     elif user.user_type == 'doctor':
                         request.session['doctor_id'] = user.id
                         return redirect('doctor_home')
@@ -216,7 +219,7 @@ def search_hospital(request):
     hospitals=hospital.objects.all()
     if query:
         hospitals=hospital.filter(Hospital_Name__icontains=query)
-
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
+
 def hospital_doctor_view(request):
     return render (request,"doctorsdetails.html")
