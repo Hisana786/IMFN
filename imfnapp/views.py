@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import login,hospital,ambulance, patient,doctor
 from .forms import hospitalform,loginform,ambulanceform,logincheckform,hospitaleditform,ambulanceeditform,logineditform, patientform, profileform,doctorform,doctorprofileform,logincheckforms
+from django.db.models import Q
 
 def index(request):
     return render(request,'index.html')
@@ -229,10 +230,11 @@ def doctorprofile(request):
 
 
 def search_hospital(request):
-    query=request.GET.get('q','')
+    query=request.GET.get('search')
+    print(query)
     hospitals=hospital.objects.all()
     if query:
-        hospitals=hospital.filter(Hospital_Name__icontains=query)
+        hospitals=hospital.objects.filter(Q(Hospital_Name__icontains=query) | Q(District__icontains=query) | Q(City__icontains=query))
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
 
 def hospital_doctor_view(request):
