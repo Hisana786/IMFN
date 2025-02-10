@@ -39,7 +39,7 @@ def Register_hospital(request):
                 hosp=form.save(commit=False)
                 hosp.Login_id=login_data
                 hosp.save()
-            return redirect('hospital_home')
+            return redirect('')
         else:        
             form=hospitalform() 
             login=loginform()
@@ -56,7 +56,7 @@ def Register_ambulance(request):
             amb=form.save(commit=False)
             amb.Login_id=login_data
             amb.save()
-            return redirect('ambulance_home')
+            return redirect('')
     else:
         form=ambulanceform()
         login=loginform()
@@ -73,7 +73,7 @@ def register_doctor(request):
             doc=form.save(commit=False)
             doc.login_id=login_data
             doc.save()
-            return redirect('doctor_home')
+            return redirect('')
     else:        
         form=doctorform()
         login=loginform()
@@ -185,7 +185,7 @@ def register_patient(request):
             pat=form.save(commit=False)
             pat.Login_id=login_data
             pat.save()
-            return redirect('patient_home')
+            return redirect('')
     else:        
         form=patientform()
         login=loginform() 
