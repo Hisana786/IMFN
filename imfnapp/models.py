@@ -7,6 +7,8 @@ class hospital(models.Model):
     City=models.CharField(max_length=40)
     Contact_No=models.CharField(max_length=15)
     Login_id=models.ForeignKey('login',on_delete=models.CASCADE,null=True,blank=True)
+    def __str__(self):
+        return self.Hospital_Name
  
 class login(models.Model):
     Email=models.EmailField(unique=True)
@@ -46,8 +48,8 @@ class doctor(models.Model):
     specialisation=models.CharField(max_length=40)
     year_of_experience=models.CharField(max_length=20)
     contact_no=models.CharField(max_length=15)
-    hospital_name=models.CharField(max_length=30)
-    Login_id=models.ForeignKey('login',on_delete=models.CASCADE,null=True,blank=True)
+    hospital_name = models.ForeignKey('hospital', on_delete=models.CASCADE,default=True)
+    loginid=models.ForeignKey('login',on_delete=models.CASCADE,default=True)
 
 
 
