@@ -239,4 +239,7 @@ def search_hospital(request):
 
 def hospital_doctor_view(request):
     doctorss=doctor.objects.all()
-    return render(request,'doctorsdetails.html',{'doctorss':doctorss})       
+    return render(request,'doctorsdetails.html',{'doctorss':doctorss})   
+
+def payment(request):
+    return render(request,'payment.html')    
