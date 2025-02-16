@@ -19,14 +19,16 @@ class ambulanceform(forms.ModelForm):
         fields=['Ambulance_Category','Ambulance_Type','Vehicle_NO','Contact_No','Driver_Name']
 
 class doctorform(forms.ModelForm):
+    hospital_name = forms.ModelChoiceField(queryset=hospital.objects.all(), empty_label='select hospital')
     class Meta:
-        model=doctor
-        fields=['doctor_name','photo','gender','DOB','specialisation','year_of_experience','contact_no','hospital_name']
-        widgets={
-            'password' : forms.PasswordInput(),
-            'gender' : forms.RadioSelect(),
-            'DOB' : forms.TextInput(attrs={'type':'date'})
-        }        
+        model = doctor
+        fields = ['doctor_name', 'photo', 'gender', 'DOB', 'specialisation', 'year_of_experience', 'contact_no', 'hospital_name']
+        widgets = {
+            'password': forms.PasswordInput(),
+            'gender': forms.RadioSelect(),
+            'DOB': forms.TextInput(attrs={'type': 'date'})
+        }
+      
 
 class logincheckform(forms.Form):
     Email=forms.CharField(max_length=100, required=True)
