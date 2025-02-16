@@ -19,7 +19,6 @@ class ambulanceform(forms.ModelForm):
         fields=['Ambulance_Category','Ambulance_Type','Vehicle_NO','Contact_No','Driver_Name']
 
 class doctorform(forms.ModelForm):
-    hospital_name = forms.ModelChoiceField(queryset=hospital.objects.all(), empty_label='select hospital')
     class Meta:
         model = doctor
         fields = ['doctor_name', 'photo', 'gender', 'DOB', 'specialisation', 'year_of_experience', 'contact_no', 'hospital_name']
@@ -79,7 +78,7 @@ class logineditform(forms.ModelForm):
 class doctorprofileform(forms.ModelForm):
     class Meta:
         model=doctor
-        fields=['doctor_name','photo','gender','DOB','specialisation','year_of_experience','contact_no','hospital_name']
+        fields=['doctor_name','photo','gender','DOB','specialisation','year_of_experience','contact_no']
         widgets={
             'password' : forms.PasswordInput(),
             'gender' : forms.RadioSelect(),

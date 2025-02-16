@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Doctor Details</h1>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
             {{ login.as_p}}
