@@ -58,7 +58,7 @@ def Register_ambulance(request):
             amb=form.save(commit=False)
             amb.Login_id=login_data
             amb.save()
-            return redirect('')
+        return redirect('/')
     else:
         form=ambulanceform()
         login=loginform()
@@ -66,17 +66,16 @@ def Register_ambulance(request):
 
 def register_doctor(request):
     if request.method=='POST':
-        form=doctorform(request.POST ,request.FILES)
-        print("dattaaaa",form)
+        form=doctorform(request.POST)
         login=loginform(request.POST)
         if form.is_valid() and login.is_valid():
             login_data=login.save(commit=False)
             login_data.user_type='doctor'
             login_data.save()
             doc=form.save(commit=False)
-            doc.login_id=login_data
+            doc.Login_id=login_data
             doc.save()
-            return redirect('/')
+        return redirect('/')
     else:        
         form=doctorform()
         login=loginform()
@@ -188,7 +187,7 @@ def register_patient(request):
             pat=form.save(commit=False)
             pat.Login_id=login_data
             pat.save()
-            return redirect('')
+            return redirect('/')
     else:        
         form=patientform()
         login=loginform() 
@@ -241,6 +240,10 @@ def search_hospital(request):
 
 def hospital_doctor_view(request):
     doctorss=doctor.objects.all()
-    return render(request,'doctorsdetails.html',{'doctorss':doctorss})  
+    return render(request,'doctorsdetails.html',{'doctorss':doctorss})   
+
+def payment(request):
+    return render(request,'payment.html')    
+ 
 def doctor_search(request):
     return render(request,'doctorsearch.html')   
