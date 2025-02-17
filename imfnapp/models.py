@@ -42,7 +42,7 @@ class patient(models.Model):
 class doctor(models.Model):
     GENDER_CHOICES = [("Male", "Male"), ("Female", "Female"), ("Other", "Other")]
     doctor_name = models.CharField(max_length=25)
-    photo = models.ImageField()
+    photo = models.FileField(upload_to='uploads')
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default="Male")
     DOB = models.DateField(max_length=25)
     specialisation = models.CharField(max_length=40)
