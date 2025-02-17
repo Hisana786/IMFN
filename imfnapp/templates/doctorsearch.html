@@ -1,0 +1,35 @@
+{% extends 'hospatientindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Doctors Details</title>
+    </head>
+    <body>
+        <h2>Doctors Data</h2>
+        <table border =2>
+            <tr>
+                <th>Doctor Name</th>
+                <th>Photo</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Specialisation</th>
+                <th>Year Of Experience</th>
+                <th>Contact No</th>
+                <th>Hospital Name</th>
+            </tr>
+            <tr>
+                {% for doctor in doctors %}
+                <td>{{doctor.doctor_name}}</td>
+                <td>{{doctor.photo}}</td>
+                <td>{{doctor.gender}}</td>
+                <td>{{doctor.DOB}}</td>
+                <td>{{doctor.specialisation}}</td>
+                <td>{{doctor.year_of_experience}}</td>
+                <td>{{doctor.contact_no}}</td>
+                <td>{{doctor.hospital_name}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}
