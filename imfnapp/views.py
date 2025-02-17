@@ -70,7 +70,6 @@ def register_doctor(request):
         login=loginform(request.POST)
         # print(login)
         if form.is_valid() and login.is_valid():
-            print('hii inside if lG')
             login_data=login.save(commit=False)
             login_data.user_type='doctor'
             login_data.save()
