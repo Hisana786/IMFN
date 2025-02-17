@@ -17,8 +17,8 @@
                 <th>Contact No</th>
                 <th>Hospital Name</th>
             </tr>
+            {% for doctor in doctorr %}
             <tr>
-                {% for doctor in doctors %}
                 <td>{{doctor.doctor_name}}</td>
                 <td>{{doctor.photo}}</td>
                 <td>{{doctor.gender}}</td>

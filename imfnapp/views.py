@@ -248,4 +248,5 @@ def payment(request):
     return render(request,'payment.html')    
  
 def doctor_search(request):
-    return render(request,'doctorsearch.html')   
+    doctorr=doctor.objects.all()
+    return render(request,'doctorsearch.html',{' doctorr':doctorr})   
