@@ -8,6 +8,9 @@ class hospital(models.Model):
     City = models.CharField(max_length=40)
     Contact_No = models.CharField(max_length=15)
     Login_id = models.ForeignKey("login", on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return self.Hospital_Name
+  
 
 
 class login(models.Model):
@@ -41,12 +44,34 @@ class patient(models.Model):
 
 class doctor(models.Model):
     GENDER_CHOICES = [("Male", "Male"), ("Female", "Female"), ("Other", "Other")]
+    
     doctor_name = models.CharField(max_length=25)
     photo = models.FileField(upload_to='uploads')
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default="Male")
-    DOB = models.DateField(max_length=25)
+    DOB = models.DateField(max_length=25) 
     specialisation = models.CharField(max_length=40)
     year_of_experience = models.CharField(max_length=20)
     contact_no = models.CharField(max_length=15)
-    hospital_name = models.CharField(max_length=40)
-    Login_id = models.ForeignKey("login", on_delete=models.CASCADE, default=True)
+
+    # OneToOneField for hospital
+    hospital_login_id = models.ForeignKey('login', on_delete=models.CASCADE, related_name='doctor_login')
+
+    # ForeignKey for login_id
+    login_id = models.ForeignKey("login", on_delete=models.CASCADE, related_name="Doctor_login", default=True)
+
+class appointment(models.Model):
+    Date=models.DateField(max_length=25)
+    Time=models.TimeField(max_length=25)
+    doctor_login_id = models.ForeignKey("login", on_delete=models.CASCADE, related_name="doctor", default=True)
+    patient_login_id = models.ForeignKey("login", on_delete=models.CASCADE, related_name="patient_login", default=True)
+    Current_Date=models.DateField(auto_now_add=True)
+    Payment_Status=models.IntegerField(default=0)
+
+class payment(models.Model):
+    Amount=models.DecimalField(max_digits=10,decimal_places=2)
+    Current_Date=models.DateField(auto_now_add=True)
+
+    
+
+
+

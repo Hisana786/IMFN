@@ -1,0 +1,15 @@
+{% extends 'hospatientindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Appointment</title>
+    </head>
+    <body>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
+{% endblock %}
