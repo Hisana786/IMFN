@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import login,hospital,ambulance, patient,doctor
-from .forms import hospitalform,loginform,ambulanceform,logincheckform,hospitaleditform,ambulanceeditform,logineditform, patientform, profileform,doctorform,doctorprofileform,logincheckforms
+from .models import *
+from .forms import *
 from django.db.models import Q
 
 def index(request):
@@ -82,7 +82,27 @@ def register_doctor(request):
         login=loginform()
          
     return render(request,'doctors.html',{'form':form,'login':login})
+    if request.method == 'POST':
+        form = doctorform(request.POST, request.FILES)
+        login = loginform(request.POST)
 
+        if form.is_valid() and login.is_valid():
+            login_data = login.save(commit=False)
+            login_data.user_type = 'doctor'
+            login_data.save()
+            doc = form.save(commit=False)
+            hospital = form.cleaned_data['hospital_name']
+            doc.hospital_name = hospital
+            doc.login_id = login_data
+            doc.hospital_login_id = hospital.Login_id
+            doc.save()
+            return redirect('/')
+
+    else:
+        form = doctorform() 
+        login = loginform() 
+
+    return render(request, 'doctors.html', {'form': form, 'login': login})
 
 def hospital_login(request):
     if request.method == 'POST':
@@ -138,6 +158,7 @@ def hospitalprofile(request):
     hospital_id = request.session.get('hospital_id')
     print(hospital_id)
     hospital_login_data = get_object_or_404(login,id=hospital_id)
+    print("data",form)
     hospital_data = get_object_or_404(hospital,Login_id=hospital_login_data)
     if request.method == 'POST':
         form = hospitaleditform(request.POST,instance=hospital_data)
@@ -216,7 +237,7 @@ def doctorprofile(request):
     doctor_id = request.session.get('doctor_id')
     print(doctor_id)
     doctor_login_data = get_object_or_404(login,id=doctor_id)
-    doctor_data = get_object_or_404(doctor,Login_id=doctor_login_data)
+    doctor_data = get_object_or_404(doctor,login_id=doctor_login_data)
 
     if request.method == 'POST':
         form = doctorprofileform(request.POST,instance=doctor_data)
@@ -246,6 +267,25 @@ def hospital_doctor_view(request):
 def payment(request):
     return render(request,'payment.html')    
  
-def doctor_search(request):
-    doctorr=doctor.objects.all()
-    return render(request,'doctorsearch.html',{' doctorr':doctorr})   
+def doctor_search(request,id):
+    doctorrs=doctor.objects.filter(hospital_login_id=id)
+    return render(request,'doctorsearch.html',{'doctorrs':doctorrs})  
+
+def appointment(request,id):
+    patient_id = request.session.get('patient_id')
+    # print(patient_id)
+    patient_login_data = get_object_or_404(login,id=patient_id)
+    doctorlogin = get_object_or_404(doctor,login_id = id)
+    patient_data = get_object_or_404(patient,Login_id=patient_login_data)
+    if request.method=='POST':
+        form=appointmentform(request.POST)
+        if form.is_valid():
+            form.save()
+            
+            return redirect('payment')
+    else:        
+        form=appointmentform() 
+    return render(request,'appointment.html',{'form':form})
+
+
+
