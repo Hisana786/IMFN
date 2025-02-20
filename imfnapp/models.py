@@ -71,6 +71,8 @@ class payment(models.Model):
     Amount=models.DecimalField(max_digits=10,decimal_places=2)
     Current_Date=models.DateField(auto_now_add=True)
 
+
+
     
 
 

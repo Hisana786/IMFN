@@ -264,6 +264,9 @@ def appointment(request,id):
         form=appointmentform(request.POST)
         if form.is_valid():
             form.save()
+            app=form.save(commit=False)
+            app.patient_id=patient_login_data
+            app.save()
             
             return redirect('payment')
     else:        

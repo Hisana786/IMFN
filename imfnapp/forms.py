@@ -1,5 +1,5 @@
 from django import forms
-from .models import hospital,login,ambulance,patient,doctor,appointment
+from .models import hospital,login,ambulance,patient,doctor,appointment,payment
 
 class hospitalform(forms.ModelForm):
     #password=forms.CharField(widget=forms.PasswordInput)
@@ -100,5 +100,10 @@ class appointmentform(forms.ModelForm):
             'Time':forms.TextInput(attrs={'type':'time'})
 
         }    
+
+class paymentform(forms.ModelForm):
+    class Meta:
+        model=payment
+        fields=['Amount']        
 
 
