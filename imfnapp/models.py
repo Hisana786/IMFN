@@ -48,13 +48,13 @@ class doctor(models.Model):
     doctor_name = models.CharField(max_length=25)
     photo = models.FileField(upload_to='uploads')
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default="Male")
-    DOB = models.DateField(max_length=25) 
+    DOB = models.DateField(null=False) 
     specialisation = models.CharField(max_length=40)
     year_of_experience = models.CharField(max_length=20)
     contact_no = models.CharField(max_length=15)
-
+    consultation_fee = models.DecimalField(max_digits=10,decimal_places=2,default=0.00) 
     # OneToOneField for hospital
-    hospital_login_id = models.ForeignKey('login', on_delete=models.CASCADE, related_name='doctor_login')
+    hospital_login_id = models.ForeignKey('login', on_delete=models.CASCADE, related_name='doctor_login',null=True,blank=True)
 
     # ForeignKey for login_id
     login_id = models.ForeignKey("login", on_delete=models.CASCADE, related_name="Doctor_login", default=True)
@@ -68,8 +68,15 @@ class appointment(models.Model):
     Payment_Status=models.IntegerField(default=0)
 
 class payment(models.Model):
-    Amount=models.DecimalField(max_digits=10,decimal_places=2)
-    Current_Date=models.DateField(auto_now_add=True)
+    Amount = models.DecimalField(max_digits=10,decimal_places=2)
+    Current_Date = models.DateField(auto_now_add=True)
+    Card_owner = models.CharField(max_length=25)
+    Card_no = models.CharField(max_length=16)
+    Exp_month = models.IntegerField()
+    Exp_year = models.IntegerField()
+    CVV = models.CharField(max_length=4)
+
+
 
 
 
