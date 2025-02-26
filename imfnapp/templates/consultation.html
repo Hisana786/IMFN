@@ -1,0 +1,17 @@
+{% extends 'hosambulanceindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title></title>
+        </title>
+    </head>
+    <body>
+        <h1>Consultation Fee</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
+{% endblock %}

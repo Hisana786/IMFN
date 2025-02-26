@@ -158,7 +158,7 @@ def hospitalprofile(request):
     hospital_id = request.session.get('hospital_id')
     print(hospital_id)
     hospital_login_data = get_object_or_404(login,id=hospital_id)
-    print("data",form)
+    print("data")
     hospital_data = get_object_or_404(hospital,Login_id=hospital_login_data)
     if request.method == 'POST':
         form = hospitaleditform(request.POST,instance=hospital_data)
@@ -261,11 +261,21 @@ def search_hospital(request):
     return render(request,'hospitalsearch.html',{'hospitals':hospitals,'query':query})
 
 def hospital_doctor_view(request):
-    doctorss=doctor.objects.all()
+    hospital_id=request.session.get('hospital_id')
+    hospitals = get_object_or_404(login,id=hospital_id)
+    doctorss=doctor.objects.filter(hospital_login_id=hospitals)
     return render(request,'doctorsdetails.html',{'doctorss':doctorss})   
 
-def payment(request):
-    return render(request,'payment.html')    
+def payment(request,id,ids):
+
+    if request.method=='POST':
+        form=paymentform(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect() 
+    else:
+        form=paymentform()                              
+    return render(request,'payment.html',{'form':form})    
  
 def doctor_search(request,id):
     doctorrs=doctor.objects.filter(hospital_login_id=id)
@@ -275,17 +285,35 @@ def appointment(request,id):
     patient_id = request.session.get('patient_id')
     # print(patient_id)
     patient_login_data = get_object_or_404(login,id=patient_id)
-    doctorlogin = get_object_or_404(doctor,login_id = id)
+    doctorlogin = get_object_or_404(login,id=id)
     patient_data = get_object_or_404(patient,Login_id=patient_login_data)
     if request.method=='POST':
         form=appointmentform(request.POST)
         if form.is_valid():
-            form.save()
+            app=form.save(commit=False)
+            app.patient_login_id=patient_login_data
+            app.doctor_login_id=doctorlogin
+            app.save()
             
-            return redirect('payment')
+            return redirect('payment',doctorlogin.id,app.id)
     else:        
         form=appointmentform() 
     return render(request,'appointment.html',{'form':form})
+
+def consultation(request,id):
+    doctor_data = get_object_or_404(doctor,id=id)
+    if request.method=='POST':
+        form=consultationform(request.POST)
+        if form.is_valid():
+            cons=form.save(commit=False)
+            cons.consultation_fee = form.cleaned_data['consultation_fee']
+            cons.id = doctor_data.id
+            cons.save(update_fields=['consultation_fee'])
+            
+        return redirect('hospital_doctor_view')
+    else:
+        form=consultationform()
+    return render(request,'consultation.html',{'form':form})
 
 
 

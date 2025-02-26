@@ -15,7 +15,7 @@
                 <th>specialisation</th>
                 <th>year_of_experience</th>
                 <th>contact_no</th>
-                <th>hospital_name</th>
+
             </tr>
             <tr>
                 {% for doctorss in doctorss %}
@@ -26,7 +26,9 @@
                 <td>{{doctorss.specialisation}}</td>
                 <td>{{doctorss.year_of_experience}}</td>
                 <td>{{doctorss.contact_no}}</td>
-                <td>{{doctorss.hospital_name}}</td>
+                <td>
+                    <a href="{% url 'consultation' doctorss.id %}">Consultation Fees</a>
+                </td>
             </tr>
             {% endfor %}
         </table>

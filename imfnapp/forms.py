@@ -1,5 +1,5 @@
 from django import forms
-from .models import hospital,login,ambulance,patient,doctor,appointment
+from .models import hospital,login,ambulance,patient,doctor,appointment,payment
 
 class hospitalform(forms.ModelForm):
     #password=forms.CharField(widget=forms.PasswordInput)
@@ -22,7 +22,7 @@ class doctorform(forms.ModelForm):
     hospital_name = forms.ModelChoiceField(queryset=hospital.objects.all(), empty_label='select hospital')
     class Meta:
         model = doctor
-        fields = ['doctor_name', 'photo', 'gender', 'DOB', 'specialisation', 'year_of_experience', 'contact_no', 'hospital_name']
+        fields = ['doctor_name', 'photo', 'gender', 'DOB', 'specialisation', 'year_of_experience', 'contact_no','hospital_name']
         widgets = {
             'password': forms.PasswordInput(),
             'gender': forms.RadioSelect(),
@@ -100,5 +100,17 @@ class appointmentform(forms.ModelForm):
             'Time':forms.TextInput(attrs={'type':'time'})
 
         }    
+
+class paymentform(forms.ModelForm):
+    class Meta:
+        model=payment
+        fields=['Amount','Card_owner','Card_no','Exp_month','Exp_year','CVV']   
+
+
+class consultationform(forms.ModelForm):
+    class Meta:
+        model=doctor
+        fields=['consultation_fee']
+
 
 

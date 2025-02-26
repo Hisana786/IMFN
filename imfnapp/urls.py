@@ -34,8 +34,9 @@ urlpatterns= [
     path('hospital_doctor_view/',views.hospital_doctor_view,name='hospital_doctor_view'),
     path('hospitalsearch/',views.search_hospital,name='hospitalsearch'),
     path('doctor_home/',views.doctor_index,name='doctor_home'),
-    path('payment/',views.payment,name='payment'),
+    path('payment/<int:id>/<int:ids>/',views.payment,name='payment'),
     path('doctor_search/<int:id>/',views.doctor_search,name='doctor_search'),
-    path('appointment/<int:id>/',views.appointment,name='appointment')
+    path('appointment/<int:id>/',views.appointment,name='appointment'),
+    path('consultation/<int:id>/',views.consultation,name='consultation')
 ]
 
