@@ -249,13 +249,18 @@ def hospital_doctor_view(request):
     doctorss=doctor.objects.filter(hospital_login_id=hospitals)
     return render(request,'doctorsdetails.html',{'doctorss':doctorss})   
 
-def payment(request,id,ids):
-
+def payments(request,amount,appid):
     if request.method=='POST':
         form=paymentform(request.POST)
+        print(form)
         if form.is_valid():
-            form.save()
-            return redirect() 
+            a=form.save(commit=False)
+            a.Amount=amount
+            a.save()
+            b=appointment.objects.get(id=appid)
+            b.Payment_Status=1
+            b.save()
+            return redirect('patient_home') 
     else:
         form=paymentform()                              
     return render(request,'payment.html',{'form':form})    
@@ -264,11 +269,12 @@ def doctor_search(request,id):
     doctorrs=doctor.objects.filter(hospital_login_id=id)
     return render(request,'doctorsearch.html',{'doctorrs':doctorrs})  
 
-def appointment(request,id):
+def appointments(request,id):
     patient_id = request.session.get('patient_id')
     # print(patient_id)
     patient_login_data = get_object_or_404(login,id=patient_id)
     doctorlogin = get_object_or_404(login,id=id)
+    doctortbl=get_object_or_404(doctor,login_id=id)
     patient_data = get_object_or_404(patient,Login_id=patient_login_data)
     if request.method=='POST':
         form=appointmentform(request.POST)
@@ -278,7 +284,7 @@ def appointment(request,id):
             app.doctor_login_id=doctorlogin
             app.save()
             
-            return redirect('payment',doctorlogin.id,app.id)
+            return redirect('payment',doctortbl.consultation_fee,app.id)
     else:        
         form=appointmentform() 
     return render(request,'appointment.html',{'form':form})
@@ -297,6 +303,13 @@ def consultation(request,id):
     else:
         form=consultationform()
     return render(request,'consultation.html',{'form':form})
+
+def view_appointment(request):
+    doctor_id=request.session.get('doctor_id')
+    doctor_appoin = get_object_or_404(login,id=doctor_id)
+    appointments=appointment.objects.filter(Payment_Status=1,doctor_login_id=doctor_appoin).select_related('patient_login_id__patient')
+    return render(request,'viewappoin.html',{'appointments':appointments})
+
 
 
 

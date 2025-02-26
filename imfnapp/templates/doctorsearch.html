@@ -15,6 +15,7 @@
                 <th>Specialisation</th>
                 <th>Year Of Experience</th>
                 <th>Contact No</th>
+                <th>Consultation Fee</th>
                 
             </tr>
             
@@ -27,9 +28,8 @@
                 <td>{{doctorr.specialisation}}</td>
                 <td>{{doctorr.year_of_experience}}</td>
                 <td>{{doctorr.contact_no}}</td>
-                <td>
-                    <a href="{% url 'appointment' doctorr.login_id_id %}">Appointment</a>
-                </td>
+                <td>{{doctorr.consultation_fee}}</td>
+                <td><a href="{% url 'appointment' doctorr.login_id_id %}">Appointment</a></td>
                 
             </tr>
             {% endfor %}

@@ -39,7 +39,9 @@ class patient(models.Model):
     gender = models.CharField(max_length=25, choices=GENDER_CHOICES, default="Male")
     DOB = models.DateField()
     contact_no = models.CharField(max_length=25)
-    Login_id = models.ForeignKey("login", on_delete=models.CASCADE, null=True, blank=True)
+    Login_id = models.OneToOneField("login", on_delete=models.CASCADE, null=True, blank=True,related_name='patient')
+    def __str__(self):
+        return self.name
 
 
 class doctor(models.Model):
@@ -52,7 +54,7 @@ class doctor(models.Model):
     specialisation = models.CharField(max_length=40)
     year_of_experience = models.CharField(max_length=20)
     contact_no = models.CharField(max_length=15)
-    consultation_fee = models.DecimalField(max_digits=10,decimal_places=2,default=0.00) 
+    consultation_fee = models.IntegerField(default=0) 
     # OneToOneField for hospital
     hospital_login_id = models.ForeignKey('login', on_delete=models.CASCADE, related_name='doctor_login',null=True,blank=True)
 
@@ -68,7 +70,7 @@ class appointment(models.Model):
     Payment_Status=models.IntegerField(default=0)
 
 class payment(models.Model):
-    Amount = models.DecimalField(max_digits=10,decimal_places=2)
+    Amount = models.IntegerField(default=0)
     Current_Date = models.DateField(auto_now_add=True)
     Card_owner = models.CharField(max_length=25)
     Card_no = models.CharField(max_length=16)
