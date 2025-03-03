@@ -104,7 +104,7 @@ class appointmentform(forms.ModelForm):
 class paymentform(forms.ModelForm):
     class Meta:
         model=payment
-        fields=['Amount','Card_owner','Card_no','Exp_month','Exp_year','CVV']   
+        fields=['Card_owner','Card_no','Exp_month','Exp_year','CVV']   
 
 
 class consultationform(forms.ModelForm):
