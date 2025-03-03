@@ -8,7 +8,6 @@
                 <th>Patient Name</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Url</th>
                 <th>Payment Status</th>
                 <th>Cancel Status</th>
             </tr>
@@ -17,7 +16,6 @@
                 <td>{{appointment.patient_login_id.patient.name}}</td>
                 <td>{{appointment.Date}}</td>
                 <td>{{appointment.Time}}</td>
-                <td>{{appointment.Url}}</td>
                 {% if appointment.Payment_Status == 1 %}
                 <td>Paid</td>
                 {% else %}
@@ -25,15 +23,13 @@
                 {% endif %}
                 {% if appointment.Cancel_status == 1 %}
                 <td>Cancelled</td>
-               <td> <a href="{% url 'delete_appointment' appointment.id %}">Delete</a></td>
-               {% else %}
+                {% else %}
                 <td>Appointment Active</td>
-                <td>
-                    <a href="{% url 'edit_appointment' appointment.id %}">Edit</a> |
-                    <a href="{% url 'cancel_appointment' appointment.id %}">Cancel</a>
-                </td>  
                 {% endif %}
-            
+                <td>
+                    <a href="{% url 'video_conference' appointment.id %}">Video Conference</a>
+                </td>   
+                
             </tr>
             {% empty %}
             <tr>

@@ -39,5 +39,11 @@ urlpatterns= [
     path('appointment/<int:id>/',views.appointments,name='appointment'),
     path('consultation/<int:id>/',views.consultation,name='consultation'),
     path('view_appointment/',views.view_appointment,name='view_appointment'),
+    path('edit_appointment/<int:id>/',views.edit_appointments,name='edit_appointment'),
+    path('cancel_appointment/<int:id>/',views.cancel_appointment,name='cancel_appointment'),
+    path('views_appointments/',views.views_appointments,name='views_appointments'),
+    path('delete_appointment/<int:id>/',views.delete_appointment,name='delete_appointment'),
+    path('video_conference/<int:id>/',views.video_conference,name='video_conference'),
+    path('save_appointment_url/<int:id>/',views.save_appointment_url,name='save_appointment_url')
 ]
 

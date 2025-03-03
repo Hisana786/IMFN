@@ -64,10 +64,12 @@ class doctor(models.Model):
 class appointment(models.Model):
     Date=models.DateField(max_length=25)
     Time=models.TimeField(max_length=25)
-    doctor_login_id = models.ForeignKey("login", on_delete=models.CASCADE, related_name="doctor", default=True)
+    doctor_login_id = models.ForeignKey("login", on_delete=models.CASCADE, related_name="doctors", default=True)
     patient_login_id = models.ForeignKey("login", on_delete=models.CASCADE, related_name="patient_login", default=True)
-    Current_Date=models.DateField(auto_now_add=True)
-    Payment_Status=models.IntegerField(default=0)
+    Current_Date = models.DateField(auto_now_add=True)
+    Payment_Status = models.IntegerField(default=0)
+    Cancel_status = models.IntegerField(default=0)
+    Url = models.URLField(max_length=200,null=True,blank=True)
 
 class payment(models.Model):
     Amount = models.IntegerField(default=0)
@@ -77,6 +79,7 @@ class payment(models.Model):
     Exp_month = models.IntegerField()
     Exp_year = models.IntegerField()
     CVV = models.CharField(max_length=4)
+    
 
 
 

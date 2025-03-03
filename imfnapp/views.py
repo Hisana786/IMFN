@@ -3,6 +3,8 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
 from .forms import *
 from django.db.models import Q
+import json
+from django.http import JsonResponse
 
 def index(request):
     return render(request,'index.html')
@@ -308,7 +310,65 @@ def view_appointment(request):
     doctor_id=request.session.get('doctor_id')
     doctor_appoin = get_object_or_404(login,id=doctor_id)
     appointments=appointment.objects.filter(Payment_Status=1,doctor_login_id=doctor_appoin).select_related('patient_login_id__patient')
+    return render(request,'viewappoints.html',{'appointments':appointments})
+
+def edit_appointments(request,id):
+    apps=get_object_or_404(appointment,id=id)
+    if request.method=='POST':
+        form=appointmentform(request.POST,instance=apps)
+        if form.is_valid():
+            form.save()
+            return redirect('patient_home')
+    else:
+        form=appointmentform(instance=apps)
+    return render(request,'editappointment.html',{'form':form})
+
+def cancel_appointment(request,id):
+    b=get_object_or_404(appointment,id=id)
+    b.Cancel_status=1
+    b.save()
+    messages.success(request,"Appointment canceled successfully.")
+    return redirect('patient_home')
+
+
+def views_appointments(request):
+    patient_id=request.session.get('patient_id')
+    patient_appoin = get_object_or_404(login,id=patient_id)
+    appointments=appointment.objects.filter(Payment_Status=1,patient_login_id=patient_appoin).select_related('patient_login_id__patient')
     return render(request,'viewappoin.html',{'appointments':appointments})
+
+def delete_appointment(request,id):
+    c=get_object_or_404(appointment,id=id)
+    c.delete()
+    return redirect('patient_home')
+
+def video_conference(request,id):
+    video=get_object_or_404(appointment,id=id)
+    return render(request,'videoconference.html',{'video':video})
+
+def save_appointment_url(request,id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        url = data.get('url')
+
+        if url:
+            appointments = get_object_or_404(appointment,id=id)
+            appointments.Url = url
+            appointments.save()
+
+            return JsonResponse({'success': True, 'message': 'URL saved successfully'})
+
+        return JsonResponse({'success': False, 'message': 'No URL provided'}, status=400)
+
+    return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)
+
+    
+
+
+
+
+  
+
 
 
 
