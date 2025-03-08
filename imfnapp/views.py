@@ -67,23 +67,6 @@ def Register_ambulance(request):
     return render(request,"ambulance.html",{'form':form,'login':login}) 
 
 def register_doctor(request):
-    if request.method=='POST':
-        form=doctorform(request.POST, request.FILES)
-        login=loginform(request.POST)
-        # print(login)
-        if form.is_valid() and login.is_valid():
-            login_data=login.save(commit=False)
-            login_data.user_type='doctor'
-            login_data.save()
-            doc=form.save(commit=False)
-            doc.Login_id=login_data
-            doc.save()
-        return redirect('/')
-    else:        
-        form=doctorform()
-        login=loginform()
-         
-    return render(request,'doctors.html',{'form':form,'login':login})
     if request.method == 'POST':
         form = doctorform(request.POST, request.FILES)
         login = loginform(request.POST)
@@ -359,9 +342,16 @@ def delete_appointment(request,id):
     c.delete()
     return redirect('patient_home')
 
-def video_conference(request,id):
-    video=get_object_or_404(appointment,id=id)
-    return render(request,'videoconference.html',{'video':video})
+def video_conference(request, id):
+    video = get_object_or_404(appointment, id=id)
+    user_type = None
+    doctor_id=request.session.get('doctor_id')
+    dr = get_object_or_404(login, id=doctor_id)
+
+    user_type = dr.user_type
+
+    return render(request, 'videoconference.html', {'video': video, 'user_type': user_type})
+
 
 def save_appointment_url(request,id):
     if request.method == 'POST':

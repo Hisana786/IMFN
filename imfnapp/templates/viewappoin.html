@@ -17,7 +17,7 @@
                 <td>{{appointment.patient_login_id.patient.name}}</td>
                 <td>{{appointment.Date}}</td>
                 <td>{{appointment.Time}}</td>
-                <td>{{appointment.Url}}</td>
+                <td><a href="{{ appointment.Url }}" target="_blank">Video Conference</a></td>
                 {% if appointment.Payment_Status == 1 %}
                 <td>Paid</td>
                 {% else %}
