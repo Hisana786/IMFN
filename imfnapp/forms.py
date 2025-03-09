@@ -14,6 +14,7 @@ class loginform(forms.ModelForm):
         fields=['Email','Password']
 
 class ambulanceform(forms.ModelForm):
+    hospital_id= forms.ModelChoiceField(queryset=hospital.objects.all(), empty_label='select')
     class Meta:
         model=ambulance
         fields=['Ambulance_Category','Ambulance_Type','Vehicle_NO','Contact_No','Driver_Name']

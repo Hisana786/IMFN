@@ -50,17 +50,20 @@ def Register_hospital(request):
         return render(request,"hospital.html",{'form':form,'login':login})
 
 def Register_ambulance(request):
+
     if request.method == 'POST':
-        form=ambulanceform(request.POST)
+        form=ambulanceform(request.POST,request.FILES)
         login=loginform(request.POST)
         if form.is_valid() and login.is_valid():
             login_data=login.save(commit=False)
             login_data.user_type='ambulance'
             login_data.save()
             amb=form.save(commit=False)
-            amb.Login_id=login_data
+            hospital = form.cleaned_data['hospital_id']
+            amb.hospital_id=hospital
+            amb.Login_id = login_data
             amb.save()
-        return redirect('/')
+            return redirect('/')
     else:
         form=ambulanceform()
         login=loginform()
@@ -179,8 +182,10 @@ def ambulanceprofile(request):
     return render(request,"ambulanceprofile.html",{'form':form,'loginss':loginss})    
 
 def hospital_ambulance_view(request):
-    ambulancess=ambulance.objects.all()
-    return render(request,"ambulances.html",{'ambulancess':ambulancess})
+    hospitals_id=request.session.get('hospital_id')
+    hospitalss = get_object_or_404(hospital,Login_id=hospitals_id)
+    ambulances=ambulance.objects.filter(hospital_id=hospitalss)
+    return render(request,"ambulances.html",{'ambulances':ambulances})
 
 
 def register_patient(request):
@@ -368,6 +373,26 @@ def save_appointment_url(request,id):
         return JsonResponse({'success': False, 'message': 'No URL provided'}, status=400)
 
     return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)
+
+def patient_search(request):
+    query=request.GET.get('search')
+    print(query)
+    patientss=patient.objects.all()
+    if query:
+        patientss=patient.objects.filter(Q(MRnumber__icontains=query))
+    return render(request,'patientsearch.html',{'patientss':patientss,'query':query}) 
+
+def amb_search(request):
+    hospitals_id=request.session.get('hospital_id')
+    hospitalss = get_object_or_404(hospital,Login_id=hospitals_id)
+    ambs=ambulance.objects.filter(hospital_id=hospitalss)
+    return render(request,'ambsearch.html',{'ambs':ambs})  
+
+
+
+
+  
+
 
     
 

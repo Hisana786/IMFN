@@ -15,12 +15,13 @@
                 <th>Driver_Name</th>
             </tr>
             <tr>
-                {% for ambulance in ambulances %}
-                <td>{{ambulance.Ambulance_Category}}</td>
-                <td>{{ambulance.Ambulance_Type}}</td>
-                <td>{{ambulance.Vehicle_NO}}</td>
-                <td>{{ambulance.Contact_No}}</td>
-                <td>{{ambulance.Driver_Name}}</td>
+                {% for ambs in ambs %}
+                <td>{{ambs.Ambulance_Category}}</td>
+                <td>{{ambs.Ambulance_Type}}</td>
+                <td>{{ambs.Vehicle_NO}}</td>
+                <td>{{ambs.Contact_No}}</td>
+                <td>{{ambs.Driver_Name}}</td>
+                <td><a href=>Transfer</a> </td> 
             </tr>
             {% endfor %}
         </table>

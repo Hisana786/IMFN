@@ -1,5 +1,5 @@
 from django.db import models
-
+import uuid
 
 class hospital(models.Model):
     Hospital_Name = models.CharField(max_length=25)
@@ -26,6 +26,7 @@ class ambulance(models.Model):
     Contact_No = models.CharField(max_length=15)
     Driver_Name = models.CharField(max_length=30)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
+    hospital_id = models.ForeignKey("hospital", on_delete=models.CASCADE, null=True, blank=True)
 
 
 class patient(models.Model):
@@ -40,8 +41,22 @@ class patient(models.Model):
     DOB = models.DateField()
     contact_no = models.CharField(max_length=25)
     Login_id = models.OneToOneField("login", on_delete=models.CASCADE, null=True, blank=True,related_name='patient')
+    MRnumber=models.CharField(max_length=100)
+    def save(self, *args, **kwargs):
+        if not self.MRnumber:  # Only generate if not already assigned
+            self.MRnumber = self.generate_unique_mrnumber()
+        super().save(*args, **kwargs)
+
+    def generate_unique_mrnumber(self):
+        """Generate a unique MR number"""
+        while True:
+            new_mrnumber = f"MR-{uuid.uuid4().hex[:5].upper()}"  # Example: MR-AB12CD34E5
+            if not patient.objects.filter(MRnumber=new_mrnumber).exists():
+                return new_mrnumber
+
     def __str__(self):
-        return self.name
+        return f"{self.patient_name} - {self.MRnumber}"
+    
 
 
 class doctor(models.Model):

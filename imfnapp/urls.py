@@ -44,6 +44,8 @@ urlpatterns= [
     path('views_appointments/',views.views_appointments,name='views_appointments'),
     path('delete_appointment/<int:id>/',views.delete_appointment,name='delete_appointment'),
     path('video_conference/<int:id>/',views.video_conference,name='video_conference'),
-    path('save_appointment_url/<int:id>/',views.save_appointment_url,name='save_appointment_url')
+    path('save_appointment_url/<int:id>/',views.save_appointment_url,name='save_appointment_url'),
+    path('patient_search/',views.patient_search,name='patient_search'),
+    path('amb_search/',views.amb_search,name='amb_search')
 ]
 
