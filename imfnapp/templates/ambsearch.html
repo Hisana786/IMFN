@@ -1,4 +1,4 @@
-{% extends 'hospatientindex.html' %}
+{% extends 'hospindex.html' %}
 {% block content %}
 <html>
     <head>
@@ -13,6 +13,8 @@
                 <th>Vehicle_NO</th>
                 <th>Contact_No</th>
                 <th>Driver_Name</th>
+                <th>Email</th>
+                <th>Action</th>
             </tr>
             <tr>
                 {% for ambs in ambs %}
@@ -21,10 +23,90 @@
                 <td>{{ambs.Vehicle_NO}}</td>
                 <td>{{ambs.Contact_No}}</td>
                 <td>{{ambs.Driver_Name}}</td>
-                <td><a href=>Transfer</a> </td> 
+                <td>{{ambs.Login_id.Email}}</td>
+                <td> <a href="#" onclick="openMapModal({{ ambs.id }}, {{ patient.id }})">CONFIRM TRANSFER</a></td>
             </tr>
             {% endfor %}
         </table>
+         <!-- Modal for Map -->
+    <div id="mapModal" style="display: none;">
+        <div id="map" style="width: 500px; height: 400px;"></div>
+        <button onclick="saveLocation()">Confirm Location</button>
+    </div>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
+<script type="text/javascript">
+    var selectedLocation = null;
+
+    function openMapModal(ambid,patid) {
+    // Show the map modal
+    document.getElementById('mapModal').style.display = 'block';
+    window.selectedAmbulanceId = ambid;
+    window.selectedPatientId = patid;
+
+    // Initialize the map (if not already initialized)
+    if (typeof L !== 'undefined') {
+        initMap();
+    }
+}
+
+var selectedLocation = null;
+
+function initMap() {
+    var defaultLocation = [51.505, -0.09];  // Default coordinates (for example, London)
+
+    // Create the map
+    var map = L.map('map').setView(defaultLocation, 13);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Add a marker and listen for click events
+    var marker = L.marker(defaultLocation).addTo(map);
+
+    map.on('click', function(e) {
+        marker.setLatLng(e.latlng);
+        selectedLocation = e.latlng;
+    });
+}
+
+function saveLocation() {
+    if (!selectedLocation) {
+        alert("Please select a location on the map.");
+        return;
+    }
+
+    // Send the selected location (latitude, longitude) to the server
+    fetch('/save-location/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            latitude: selectedLocation.lat,
+            longitude: selectedLocation.lng,
+            patid: window.selectedPatientId,  // Use the patient ID
+            ambid: window.selectedAmbulanceId
+        })
+    }).then(response => {
+        if (response.ok) {
+            alert("Location saved successfully.");
+            // Close the modal and reload the page
+            document.getElementById('mapModal').style.display = 'none';
+            location.reload();
+        } else {
+            alert("Failed to save location.");
+        }
+    });
+}
+
+</script>
+
     </body>
 </html>
 {% endblock %}

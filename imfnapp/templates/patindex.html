@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'user/img/favicon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -53,14 +53,11 @@
                                     <div class="main-menu">
                                         <nav>
                                             <ul id="navigation">
-                                                <!-- <li><a href="{% url 'hospital_home' %}">home</a></li> -->
-
-                                                <!-- <li><a href="{% url 'hospital_doctor_view' %}">Doctor</a></li> -->
-
-                                                <!-- <li><a href="{% url 'hospital_ambulance_view' %}">Ambulance</a></li> -->
+                                                <li><a href="{% url 'hospitalsearch' %}">Hospital</a></li>
+                                                <li><a href="{% url 'views_appointments' %}">Appointment</a></li>
                                                 <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                                     <ul class="submenu">
-                                                        <!-- <li><a href="">Ambulance</a></li> -->
+                                                        <li><a href="blog.html">blog</a></li>
                                                         <li><a href="single-blog.html">single-blog</a></li>
                                                     </ul>
                                                 </li>
@@ -70,19 +67,12 @@
                                                         <li><a href="elements.html">elements</a></li>
                                                     </ul>
                                                 </li>
-
-                                                <!-- <li><a href="{% url 'hospitalprofile' %}">Profile</a></li> -->
-
-
-                                               
-                                                <!-- <li><a href="{% url 'hospitalprofile' %}">Profile</a></li> -->
-
+                                                <li><a href="{% url 'profile' %}">Profile</a></li>
                                             </ul>
                                         </nav>
                                     </div>
                                     <div class="book_room">
                                         <div class="book_btn">
-                                            <a class="popup-with-form" href="#test-form">Login</a>
                                             <a class="popup-with-form" href="#test-form">Book  Appointment</a>
                                         </div>
                                     </div>
@@ -97,15 +87,14 @@
             </div>
         </div>
     </header>
-    
     <!-- header-end -->
-      <!-- bradcam_area_start  -->
+           <!-- bradcam_area_start  -->
     <div class="bradcam_area breadcam_bg">
         <div class="container">
             <div class="row">
-                <!-- <div class="col-xl-12"> -->
+                <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>Data</h3>
+                    <h3></h3>
                     </div>
                 </div>
             </div>
@@ -185,8 +174,6 @@
                         </h3>
                         <ul class="meting_time">
                             <li class="d-flex justify-content-between "><span>Monday - Friday</span> <span>8.00 - 18.00</span></li>
-                            <li class="d-flex justify-content-between "><span>Saturday </span> <span>8.00 - 18.00</span></li>
-                            <li class="d-flex justify-content-between "><span>Saturday	</span> <span>8.00 - 18.00</span></li>
                             <li class="d-flex justify-content-between "><span>Saturday </span> <span>8.00 - 18.00</span></li>
                             <li class="d-flex justify-content-between "><span>Sunday</span> <span>8.00 - 13.00</span></li>
                         </ul>
@@ -306,5 +293,5 @@ $('.js-example-basic-multiple').select2();
 });
 </script>
 </body>
-</html>
 
+</html>

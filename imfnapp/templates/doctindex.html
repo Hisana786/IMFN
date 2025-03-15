@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'user/img/favicon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -53,7 +53,7 @@
                                     <div class="main-menu">
                                         <nav>
                                             <ul id="navigation">
-                                                <li><a href="index.html">home</a></li>
+                                                <li><a href="{% url 'view_appointment' %}">Appointment</a></li>
                                                 <li><a href="about.html">About</a></li>
                                                 <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                                     <ul class="submenu">
@@ -66,17 +66,9 @@
                                                         <li><a href="department.html">Deportment</a></li>
                                                         <li><a href="elements.html">elements</a></li>
                                                     </ul>
-
                                                 </li>
-                                                <!-- <li><a href="{% url 'doctorprofile' %}">Profile</a></li> -->
+                                                <li><a href="{% url 'doctorprofile' %}">Profile</a></li>
                                             </ul>
-
-                                                </li>
-
-                                               
-
-                                                <!-- <li><a href="{% url 'doctorprofile' %}">Profile</a></li> -->
-
                                         </nav>
                                     </div>
                                     <div class="book_room">
@@ -95,24 +87,26 @@
             </div>
         </div>
     </header>
-    <!-- bradcam_area_start  -->
-<div class="bradcam_area breadcam_bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="bradcam_text">
+    <!-- header-end -->
 
-                    <h3>Registration</h3>
-
+          <!-- bradcam_area_start  -->
+          <div class="bradcam_area breadcam_bg">
+            <div class="container">
+                <div class="row">
+                    <!-- <div class="col-xl-12"> -->
+                        <div class="bradcam_text">
+                            <h3></h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- bradcam_area_end  -->
-{% block content %}
-
-{% endblock %}
+        <!-- bradcam_area_end  -->
+    {% block content %}
+    
+    
+    
+    {% endblock %}
     <footer class="footer">
         <div class="footer_top">
             <div class="container">
@@ -150,7 +144,7 @@
                                     </li>
                                 </ul>
                             </div>
-
+    
                         </div>
                     </div>
                     <div class="col-xl-4 col-md-6 col-lg-4">
@@ -181,7 +175,9 @@
                             </h3>
                             <ul class="meting_time">
                                 <li class="d-flex justify-content-between "><span>Monday - Friday</span> <span>8.00 - 18.00</span></li>
+                                <li class="d-flex justify-content-between "><span>Saturday </span> <span>8.00 - 18.00</span></li>
                                 <li class="d-flex justify-content-between "><span>Saturday	</span> <span>8.00 - 18.00</span></li>
+                                <li class="d-flex justify-content-between "><span>Saturday </span> <span>8.00 - 18.00</span></li>
                                 <li class="d-flex justify-content-between "><span>Sunday</span> <span>8.00 - 13.00</span></li>
                             </ul>
                         </div>
@@ -196,17 +192,17 @@
                     <div class="col-xl-12">
                         <p class="copy_right text-center">
                             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-
+    
     <!-- link that opens popup -->
-
+    
     <!-- form itself end-->
     <form id="test-form" class="white-popup-block mfp-hide">
         <div class="popup_box ">
@@ -220,9 +216,10 @@
                         <div class="col-xl-12">
                             <select class="form-select wide" id="default-select" class="">
                                 <option data-display="Please select doctor to visit">Please select doctor to visit </option>
-                                <option value="1">Anaf</option>
-                                <option value="2">Nayna Therapy</option>
-                                <option value="3">Nadif</option>
+                                <option value="1">Nasiya</option>
+                                <option value="2">Greeshma</option>
+                                <option value="3">hisana</option>
+                                <option value="4">alhida</option>
                             </select>
                         </div>
                         <div class="col-xl-9">
@@ -252,7 +249,7 @@
         </div>
     </form>
     <!-- form itself end -->
-
+    
     <!-- JS here -->
     <script src="{% static 'user/js/vendor/modernizr-3.5.0.min.js' %}"></script>
     <script src="{% static 'user/js/vendor/jquery-1.12.4.min.js' %}"></script>
@@ -273,12 +270,12 @@
     <script src="{% static 'user/js/plugins.js' %}"></script>
     <script src="{% static 'user/js/gijgo.min.js' %}"></script>
     <!--contact js-->
-    <script src="{% static 'user/js/contact.js' %}"></script>
-    <script src="{% static 'user/js/jquery.ajaxchimp.min.js' %}"></script>
-    <script src="{% static 'user/js/jquery.form.js' %}"></script>
-    <script src="{% static 'user/js/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'user/js/mail-script.js' %}"></script>
-
+    <script src="{% static 'user/js/contact.js'%}"></script>
+    <script src="{% static 'user/js/jquery.ajaxchimp.min.js'%}"></script>
+    <script src="{% static 'user/js/jquery.form.js'%}"></script>
+    <script src="{% static 'user/js/jquery.validate.min.js'%}"></script>
+    <script src="{% static 'user/js/mail-script.js'%}"></script>
+    
     <script src="{% static 'user/js/main.js' %}"></script>
     <script>
         $('.datepicker').datepicker({
@@ -287,7 +284,7 @@
                 rightIcon: '<span class="fa fa-calendar"></span>'
             }
         });
-
+    
         $('.timepicker').timepicker({
             iconsLibrary: 'fontawesome',
             icons: {
@@ -296,8 +293,9 @@
         });
     $(document).ready(function() {
     $('.js-example-basic-multiple').select2();
-});
+    });
     </script>
-</body>
-
-</html>
+    </body>
+    </html>
+    
+    

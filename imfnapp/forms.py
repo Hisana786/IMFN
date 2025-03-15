@@ -1,8 +1,7 @@
 from django import forms
-from .models import hospital,login,ambulance,patient,doctor,appointment,payment
+from .models import hospital,login,ambulance,patient,doctor,appointment,payment,Location
 
 class hospitalform(forms.ModelForm):
-    #password=forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model=hospital
@@ -112,6 +111,14 @@ class consultationform(forms.ModelForm):
     class Meta:
         model=doctor
         fields=['consultation_fee']
+
+
+class Locationform(forms.ModelForm):
+    class meta:
+        model=Location
+        fields=['']
+
+    
 
 
 

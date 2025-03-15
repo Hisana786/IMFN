@@ -1,9 +1,57 @@
-{% extends 'hosambulanceindex.html' %}
+{% extends 'registerindex.html' %}
 {% block content %}
 
 <html>
     <head>
         <title>Form </title>
+        <style>
+            form {
+                max-width: 400px;
+                margin: 20px auto;
+                padding: 20px;
+                border-radius: 12px;
+                background: #f8f9fa;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                text-align: center;
+                color: #343a40;
+                font-size: 24px;
+            }
+
+            label {
+                font-weight: bold;
+                display: block;
+                margin-top: 10px;
+                color: #495057;
+            }
+
+            input, select, textarea {
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                border: 1px solid #ced4da;
+                border-radius: 6px;
+                font-size: 14px;
+            }
+
+            button {
+                width: 100%;
+                background: #007bff;
+                color: white;
+                padding: 10px;
+                border: none;
+                border-radius: 6px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 15px;
+            }
+
+            button:hover {
+                background: #0056b3;
+            }
+        </style>
     </head>
     <body>
         <h1>Doctor Details</h1>

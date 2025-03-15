@@ -379,14 +379,44 @@ def patient_search(request):
     print(query)
     patientss=patient.objects.all()
     if query:
-        patientss=patient.objects.filter(Q(MRnumber__icontains=query))
+        patientss=patient.objects.filter(Q(MRnumber__icontains=query)) 
     return render(request,'patientsearch.html',{'patientss':patientss,'query':query}) 
 
 def amb_search(request):
     hospitals_id=request.session.get('hospital_id')
     hospitalss = get_object_or_404(hospital,Login_id=hospitals_id)
     ambs=ambulance.objects.filter(hospital_id=hospitalss)
-    return render(request,'ambsearch.html',{'ambs':ambs})  
+    return render(request,'ambsearch.html',{'ambs':ambs}) 
+
+
+def save_location(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        latitude = data.get('latitude')
+        longitude = data.get('longitude')
+        patid= data.get('patid')
+        ambid= data.get('ambid')
+        p=get_object_or_404(patient,id=patid)
+        amb=get_object_or_404(ambulance,id=ambid)
+
+        if not all([latitude, longitude,patid,ambid]):
+            return JsonResponse({"status": "error", "message": "Missing required fields"}, status=400)
+
+        # Create and save the Location instance
+        location = Location(
+            latitude=latitude,
+            longitude=longitude,
+            pat_id=p,
+            amb_login_id=amb
+
+        )
+        location.save()
+
+        return JsonResponse({"status": "success"})
+    
+    return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)
+
 
 
 

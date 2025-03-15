@@ -94,6 +94,14 @@ class payment(models.Model):
     Exp_month = models.IntegerField()
     Exp_year = models.IntegerField()
     CVV = models.CharField(max_length=4)
+
+class Location(models.Model):
+    latitude = models.CharField(max_length=9)
+    longitude = models.CharField(max_length=9)
+    amb_login_id = models.ForeignKey("ambulance", on_delete=models.CASCADE, related_name="ambulancs", default=True)
+    pat_id = models.ForeignKey("patient", on_delete=models.CASCADE, related_name="patients", default=True)
+    current_date = models.DateField(auto_now_add=True)
+
     
 
 
