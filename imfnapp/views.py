@@ -382,11 +382,13 @@ def patient_search(request):
         patientss=patient.objects.filter(Q(MRnumber__icontains=query)) 
     return render(request,'patientsearch.html',{'patientss':patientss,'query':query}) 
 
-def amb_search(request):
+def amb_search(request,id):
     hospitals_id=request.session.get('hospital_id')
     hospitalss = get_object_or_404(hospital,Login_id=hospitals_id)
+    Patient=get_object_or_404(patient,id=id)
+    # pat=patient.objects.filter(MRnumber=Patient)
     ambs=ambulance.objects.filter(hospital_id=hospitalss)
-    return render(request,'ambsearch.html',{'ambs':ambs}) 
+    return render(request,'ambsearch.html',{'ambs':ambs,'pat':Patient}) 
 
 
 def save_location(request):
@@ -416,6 +418,24 @@ def save_location(request):
         return JsonResponse({"status": "success"})
     
     return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)
+
+def Register_pharmacy(request): 
+    if request.method == 'POST':
+        form=pharmacyform(request.POST)
+        login=loginform(request.POST)
+        if form.is_valid() and login.is_valid():
+            login_data=login.save(commit=False)
+            print(login_data)
+            login_data.user_type='pharmacy'
+            login_data.save()
+            pharm=form.save(commit=False)
+            pharm.Login_id=login_data
+            pharm.save()
+            return redirect('hospital_home')    
+    else:        
+        form=pharmacyform() 
+        login=loginform()
+    return render(request,"pharmacy.html",{'form':form,'login':login})
 
 
 

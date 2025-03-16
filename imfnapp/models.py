@@ -55,7 +55,7 @@ class patient(models.Model):
                 return new_mrnumber
 
     def __str__(self):
-        return f"{self.patient_name} - {self.MRnumber}"
+        return f"{self.name} - {self.MRnumber}"
     
 
 
@@ -102,6 +102,10 @@ class Location(models.Model):
     pat_id = models.ForeignKey("patient", on_delete=models.CASCADE, related_name="patients", default=True)
     current_date = models.DateField(auto_now_add=True)
 
+class pharmacy(models.Model):
+    Pharmacy_id= models.CharField(max_length=10)
+    contact_no = models.CharField(max_length=15)
+    Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
     
 
 

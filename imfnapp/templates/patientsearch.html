@@ -34,7 +34,7 @@
                             <td>{{patient.MRnumber}}</td>
                             <td>{{patient.Login_id.Email}}</td>
                             <td>
-                            <a href="{% url 'amb_search' %}">Transfer</a> 
+                            <a href="{% url 'amb_search' patient.id  %}">Transfer</a> 
                             </td>
                           </tr>
                           {% endfor %}

@@ -46,7 +46,8 @@ urlpatterns= [
     path('video_conference/<int:id>/',views.video_conference,name='video_conference'),
     path('save_appointment_url/<int:id>/',views.save_appointment_url,name='save_appointment_url'),
     path('patient_search/',views.patient_search,name='patient_search'),
-    path('amb_search/',views.amb_search,name='amb_search'),
-    path('location/',views.save_location,name='location')
+    path('amb_search/<int:id>/',views.amb_search,name='amb_search'),
+    path('location/',views.save_location,name='location'),
+    path('Register_pharmacy/',views.Register_pharmacy,name='Register_pharmacy')
 ]
 

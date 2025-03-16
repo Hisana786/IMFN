@@ -24,7 +24,7 @@
                 <td>{{ambs.Contact_No}}</td>
                 <td>{{ambs.Driver_Name}}</td>
                 <td>{{ambs.Login_id.Email}}</td>
-                <td> <a href="#" onclick="openMapModal({{ ambs.id }}, {{ patient.id }})">CONFIRM TRANSFER</a></td>
+                <td> <a href="#" onclick="openMapModal({{ ambs.id }}, {{ pat.id }})">CONFIRM TRANSFER</a></td>
             </tr>
             {% endfor %}
         </table>
@@ -81,7 +81,7 @@ function saveLocation() {
     }
 
     // Send the selected location (latitude, longitude) to the server
-    fetch('/save-location/', {
+    fetch('/location/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

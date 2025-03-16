@@ -1,5 +1,5 @@
 from django import forms
-from .models import hospital,login,ambulance,patient,doctor,appointment,payment,Location
+from .models import hospital,login,ambulance,patient,doctor,appointment,payment,Location,pharmacy
 
 class hospitalform(forms.ModelForm):
 
@@ -117,6 +117,12 @@ class Locationform(forms.ModelForm):
     class meta:
         model=Location
         fields=['']
+
+class pharmacyform(forms.ModelForm):
+
+    class Meta:
+        model=pharmacy
+        fields=['Pharmacy_id','contact_no']        
 
     
 
