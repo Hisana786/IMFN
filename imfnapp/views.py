@@ -31,6 +31,9 @@ def doctor_index(request):
     return render(request,'doctorindex.html')    
     # return render(request,'doctorindex.html') 
 
+def pharmacy_index(request):
+    return render(request,'pharmacyindex.html')    
+
 def Register_hospital(request): 
         if request.method == 'POST':
             form=hospitalform(request.POST)
@@ -114,6 +117,9 @@ def hospital_login(request):
                     elif user.user_type == 'doctor':
                         request.session['doctor_id'] = user.id
                         return redirect('doctor_home')
+                    elif user.user_type == 'pharmacy':
+                        request.session['pharm_id'] = user.id
+                        return redirect('pharmacy_home')
                 else:
                     messages.error(request, 'Invalid password')
             except login.DoesNotExist:  # Correcting the exception handling
@@ -392,6 +398,8 @@ def amb_search(request,id):
 
 
 def save_location(request):
+    hospitals_id=request.session.get('hospital_id')
+    hospitalss = get_object_or_404(hospital,Login_id=hospitals_id)
     if request.method == 'POST':
         data = json.loads(request.body)
 
@@ -399,9 +407,10 @@ def save_location(request):
         longitude = data.get('longitude')
         patid= data.get('patid')
         ambid= data.get('ambid')
+        hosid= data.get('hosid')
         p=get_object_or_404(patient,id=patid)
         amb=get_object_or_404(ambulance,id=ambid)
-
+        
         if not all([latitude, longitude,patid,ambid]):
             return JsonResponse({"status": "error", "message": "Missing required fields"}, status=400)
 
@@ -410,7 +419,8 @@ def save_location(request):
             latitude=latitude,
             longitude=longitude,
             pat_id=p,
-            amb_login_id=amb
+            amb_login_id=amb,
+            hosp_id=hospitalss
 
         )
         location.save()
@@ -436,6 +446,44 @@ def Register_pharmacy(request):
         form=pharmacyform() 
         login=loginform()
     return render(request,"pharmacy.html",{'form':form,'login':login})
+
+def view_location(request):
+    ambulance_id=request.session.get('ambulance_id')
+    ambs=get_object_or_404(ambulance,Login_id=ambulance_id)
+    locations=Location.objects.filter(amb_login_id=ambs)
+    return render(request,'viewlocation.html',{'locations':locations})
+
+def hospital_view_location(request):
+    hospital_id=request.session.get('hospital_id')
+    hosps=get_object_or_404(hospital,Login_id=hospital_id)
+    locations=Location.objects.filter(hosp_id=hosps)
+    return render(request,'viewlocations.html',{'locations':locations})
+
+def pharmacyprofile(request):
+    pharm_id = request.session.get('pharm_id')
+    print(pharm_id)
+    pharmacy_login_data = get_object_or_404(login,id=pharm_id)
+    print("data")
+    pharmacy_data = get_object_or_404(pharmacy,Login_id=pharmacy_login_data)
+    if request.method == 'POST':
+        form = pharmacyform(request.POST,instance=pharmacy_data)
+        loginss = loginform(request.POST,instance=pharmacy_login_data)
+        if form.is_valid() and loginss.is_valid():
+            form.save()
+            loginss.save()
+            return redirect('pharmacy_home')
+    else:        
+        form = pharmacyform(instance = pharmacy_data) 
+        loginss = loginform(instance = pharmacy_login_data)
+    return render(request,"pharmacyprofile.html",{'form':form,'loginss':loginss})
+
+
+
+
+
+
+
+    
 
 
 

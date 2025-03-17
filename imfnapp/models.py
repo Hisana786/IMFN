@@ -100,12 +100,20 @@ class Location(models.Model):
     longitude = models.CharField(max_length=9)
     amb_login_id = models.ForeignKey("ambulance", on_delete=models.CASCADE, related_name="ambulancs", default=True)
     pat_id = models.ForeignKey("patient", on_delete=models.CASCADE, related_name="patients", default=True)
+    hosp_id =  models.ForeignKey("hospital", on_delete=models.CASCADE, related_name="hosps", default=True)
     current_date = models.DateField(auto_now_add=True)
 
 class pharmacy(models.Model):
     Pharmacy_id= models.CharField(max_length=10)
     contact_no = models.CharField(max_length=15)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
+
+class medicines(models.Model):
+    medicine_category = models.CharField(max_length=35)
+    company_name = models.CharField(max_length=45)
+    medicine_name = models.CharField(max_length=45)
+    medicine_details = models.CharField(max_length=30)
+    amount = models.IntegerField(default=0)    
     
 
 

@@ -48,6 +48,10 @@ urlpatterns= [
     path('patient_search/',views.patient_search,name='patient_search'),
     path('amb_search/<int:id>/',views.amb_search,name='amb_search'),
     path('location/',views.save_location,name='location'),
-    path('Register_pharmacy/',views.Register_pharmacy,name='Register_pharmacy')
+    path('Register_pharmacy/',views.Register_pharmacy,name='Register_pharmacy'),
+    path('view_location/',views.view_location,name='view_location'),
+    path('hospital_view_location/',views.hospital_view_location,name='hospital_view_location'),
+    path('pharmacy_home/',views.pharmacy_index,name='pharmacy_home'),
+    path('pharmacyprofile/',views.pharmacyprofile,name='pharmacyprofile')
 ]
 

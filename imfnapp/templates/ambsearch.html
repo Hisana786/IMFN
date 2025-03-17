@@ -24,7 +24,7 @@
                 <td>{{ambs.Contact_No}}</td>
                 <td>{{ambs.Driver_Name}}</td>
                 <td>{{ambs.Login_id.Email}}</td>
-                <td> <a href="#" onclick="openMapModal({{ ambs.id }}, {{ pat.id }})">CONFIRM TRANSFER</a></td>
+                <td> <a href="#" onclick="openMapModal({{ ambs.id }}, {{ pat.id }}, {{ hos.id }})">CONFIRM TRANSFER</a></td>
             </tr>
             {% endfor %}
         </table>
@@ -40,11 +40,13 @@
 <script type="text/javascript">
     var selectedLocation = null;
 
-    function openMapModal(ambid,patid) {
+    function openMapModal(ambid,patid,hosid) {
     // Show the map modal
     document.getElementById('mapModal').style.display = 'block';
     window.selectedAmbulanceId = ambid;
     window.selectedPatientId = patid;
+    window.selectedHospitalId = hosid;
+    
 
     // Initialize the map (if not already initialized)
     if (typeof L !== 'undefined') {
@@ -55,7 +57,7 @@
 var selectedLocation = null;
 
 function initMap() {
-    var defaultLocation = [51.505, -0.09];  // Default coordinates (for example, London)
+    var defaultLocation = [8.9037566,76.5124395];  // Default coordinates (for example, London)
 
     // Create the map
     var map = L.map('map').setView(defaultLocation, 13);
@@ -91,7 +93,8 @@ function saveLocation() {
             latitude: selectedLocation.lat,
             longitude: selectedLocation.lng,
             patid: window.selectedPatientId,  // Use the patient ID
-            ambid: window.selectedAmbulanceId
+            ambid: window.selectedAmbulanceId,
+            hosid: window.selectedHospitalId
         })
     }).then(response => {
         if (response.ok) {
