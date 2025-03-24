@@ -107,13 +107,22 @@ class pharmacy(models.Model):
     Pharmacy_id= models.CharField(max_length=10)
     contact_no = models.CharField(max_length=15)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return self.Pharmacy_id
 
 class medicines(models.Model):
     medicine_category = models.CharField(max_length=35)
     company_name = models.CharField(max_length=45)
     medicine_name = models.CharField(max_length=45)
-    medicine_details = models.CharField(max_length=30)
-    amount = models.IntegerField(default=0)    
+    medicine_details = models.CharField(max_length=80)
+    amount = models.IntegerField(default=0) 
+    Pharmacy_id = models.ForeignKey(pharmacy, on_delete=models.CASCADE, null=True, blank=True) 
+
+class transferpatient(models.Model):
+    from_hospital=models.ForeignKey(hospital,on_delete=models.CASCADE,related_name="hospi",default=True)
+    to_hospital=models.ForeignKey(hospital,on_delete=models.CASCADE,related_name="hospit",default=True)
+    pat_id=models.ForeignKey(patient,on_delete=models.CASCADE,related_name="pat",default=True)
+    current_date=models.DateField(auto_now_add=True)      
     
 
 

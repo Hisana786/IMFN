@@ -52,6 +52,13 @@ urlpatterns= [
     path('view_location/',views.view_location,name='view_location'),
     path('hospital_view_location/',views.hospital_view_location,name='hospital_view_location'),
     path('pharmacy_home/',views.pharmacy_index,name='pharmacy_home'),
-    path('pharmacyprofile/',views.pharmacyprofile,name='pharmacyprofile')
+    path('pharmacyprofile/',views.pharmacyprofile,name='pharmacyprofile'),
+    path('medicine/',views.Register_medicine,name='medicine'),
+    path('hospital_patient_view/',views.patient_transfer,name='hospital_patient_view'),
+    path('view_hospital/<int:id>/',views.view_hospital,name='view_hospital'),
+    path('view_medicine/',views.view_medicine,name='view_medicine'),
+    path('change_medicine/<int:id>/',views.change_medicine,name='change_medicine'),
+    path('remove_medicine/<int:id>/',views.remove_medicine,name='remove_medicine'),
+    path('confirm_transfer/<int:id>/<int:ids>/',views.confirm_transfer,name='confirm_transfer')
 ]
 

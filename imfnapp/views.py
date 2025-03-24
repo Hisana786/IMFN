@@ -477,6 +477,73 @@ def pharmacyprofile(request):
         loginss = loginform(instance = pharmacy_login_data)
     return render(request,"pharmacyprofile.html",{'form':form,'loginss':loginss})
 
+def Register_medicine(request): 
+    if request.method == 'POST':
+        form=medicinesform(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('pharmacy_home')    
+    else:        
+        form=medicinesform() 
+    return render(request,"medicine.html",{'form':form})
+
+
+def patient_transfer(request):
+    hospital_id=request.session.get('hospital_id')
+    hospss=get_object_or_404(hospital,Login_id=hospital_id)
+    query=request.GET.get('search')
+    print(query)
+    pats=patient.objects.all()
+    if query:
+        pats=patient.objects.filter(Q(MRnumber__icontains=query)) 
+    return render(request,'patienttransfer.html',{'pats':pats,'query':query})   
+
+def view_hospital(request,id):
+    patients=get_object_or_404(patient,id=id)
+
+    query=request.GET.get('search')
+    print(query)
+    hospitals=hospital.objects.all()
+    if query:
+        hospitals=hospital.objects.filter(Q(Hospital_Name__icontains=query) | Q(District__icontains=query) | Q(City__icontains=query))
+    return render(request,'viewhospital.html',{'hospitals':hospitals,'query':query,'patients':patients})
+
+def view_medicine(request):
+    medicine_id=request.session.get('pharm_id')
+    med=get_object_or_404(pharmacy,Login_id=medicine_id)
+    meds=medicines.objects.filter(Pharmacy_id=med)
+    return render(request,'viewmedicine.html',{'meds':meds})
+
+def change_medicine(request,id):
+    meds=get_object_or_404(medicines,id=id)
+    if request.method=='POST':
+        form=medicinesform(request.POST,instance=meds)
+        if form.is_valid():
+            form.save()
+            return redirect('pharmacy_home')
+    else:
+        form=medicinesform(instance=meds)
+    return render(request,'editmedicine.html',{'form':form})
+
+def remove_medicine(request,id):
+    c=get_object_or_404(medicines,id=id)
+    c.delete()
+    return redirect('pharmacy_home')
+
+def confirm_transfer(request,id,ids):
+    hospital_ids=request.session.get('hospital_id')
+    old_hospital_id=get_object_or_404(hospital,Login_id=hospital_ids)
+    patient_id=get_object_or_404(patient,id=id)
+    hospital_id=get_object_or_404(hospital,id=ids)
+    transferpatient.objects.create(from_hospital=old_hospital_id,pat_id=patient_id,to_hospital=hospital_id)
+    return redirect('hospital_home')
+
+
+
+
+
+
+
 
 
 

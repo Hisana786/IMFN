@@ -10,7 +10,6 @@
             <tr>
                 <th>Location</th>
                 <th>Patient Name</th>
-                <th>Driver Name</th>
                 <th>Hospital Name</th>
                 <th>Current Date</th>   
             </tr>
@@ -20,7 +19,6 @@
                     <a href="https://www.google.com/maps?q={{ location.latitude }},{{ location.longitude }}" target="_blank">View Location on Google Maps</a>
 </td>
                 <td>{{location.pat_id.name}}</td>
-                <td>{{location.amb_login_id.Driver_Name}}</td>
                 <td>{{location.hosp_id.Hospital_Name}}</td>
                 <td>{{location.current_date}}</td>
             </tr>

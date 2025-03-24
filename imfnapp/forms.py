@@ -127,7 +127,7 @@ class pharmacyform(forms.ModelForm):
 class medicinesform(forms.ModelForm):
     class Meta:
         model=medicines
-        fields=['medicine_category','company_name','medicine_name','medicine_details','amount']              
+        fields=['medicine_category','company_name','medicine_name','medicine_details','amount','Pharmacy_id']              
 
     
 

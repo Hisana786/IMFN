@@ -1,0 +1,32 @@
+{% extends 'pharmindex.html' %}
+{% block content %}
+<html>
+    <body>
+        <h2>Medicine</h2>
+        <table border ="2">
+            <tr>
+                <th>Medicine Category</th>
+                <th>Company Name</th>
+                <th>Medicine Name</th>
+                <th>Medicine Details</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                {% for med in meds %}
+                <td>{{med.medicine_category}}</td>
+                <td>{{med.company_name}}</td>
+                <td>{{med.medicine_name}}</td>
+                <td>{{med.medicine_details}}</td>
+                <td>{{med.amount }}</td>
+                <td><a href="{% url 'change_medicine' med.id %}">Change</a></td>
+                <td><a href="{% url 'remove_medicine' med.id %}">Remove</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Medicine</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

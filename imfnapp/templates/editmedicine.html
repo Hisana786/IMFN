@@ -1,0 +1,17 @@
+{% extends 'pharmindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Change Medicine</title>
+    </head>
+    <body>
+        <h1>Change</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Change</button>
+        </form>
+    </body>
+</html>
+{% endblock %}
+
