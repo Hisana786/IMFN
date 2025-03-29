@@ -71,7 +71,7 @@ class doctor(models.Model):
     contact_no = models.CharField(max_length=15)
     consultation_fee = models.IntegerField(default=0) 
     # OneToOneField for hospital
-    hospital_login_id = models.ForeignKey('login', on_delete=models.CASCADE, related_name='doctor_login',null=True,blank=True)
+    hospital_login_id = models.ForeignKey('hospital', on_delete=models.CASCADE, related_name='doctor_login',null=True,blank=True)
 
     # ForeignKey for login_id
     login_id = models.ForeignKey("login", on_delete=models.CASCADE, related_name="Doctor_login", default=True)
@@ -107,6 +107,7 @@ class pharmacy(models.Model):
     Pharmacy_id= models.CharField(max_length=10)
     contact_no = models.CharField(max_length=15)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
+    hos_id = models.ForeignKey("hospital", on_delete=models.CASCADE, related_name="hos", default=True)
     def __str__(self):
         return self.Pharmacy_id
 

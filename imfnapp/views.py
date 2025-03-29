@@ -83,9 +83,9 @@ def register_doctor(request):
             login_data.save()
             doc = form.save(commit=False)
             hospital = form.cleaned_data['hospital_name']
-            doc.hospital_name = hospital
+            # doc.hospital_name = hospital
             doc.login_id = login_data
-            doc.hospital_login_id = hospital.Login_id
+            doc.hospital_login_id = hospital
             doc.save()
             return redirect('/')
 
@@ -258,7 +258,7 @@ def search_hospital(request):
 
 def hospital_doctor_view(request):
     hospital_id=request.session.get('hospital_id')
-    hospitals = get_object_or_404(login,id=hospital_id)
+    hospitals = get_object_or_404(hospital,Login_id=hospital_id)
     doctorss=doctor.objects.filter(hospital_login_id=hospitals)
     return render(request,'doctorsdetails.html',{'doctorss':doctorss})   
 
@@ -429,7 +429,9 @@ def save_location(request):
     
     return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)
 
-def Register_pharmacy(request): 
+def Register_pharmacy(request):
+    hospital_id=request.session.get('hospital_id') 
+    hosp=get_object_or_404(hospital,Login_id=hospital_id)
     if request.method == 'POST':
         form=pharmacyform(request.POST)
         login=loginform(request.POST)
@@ -439,6 +441,7 @@ def Register_pharmacy(request):
             login_data.user_type='pharmacy'
             login_data.save()
             pharm=form.save(commit=False)
+            pharm.hos_id=hosp
             pharm.Login_id=login_data
             pharm.save()
             return redirect('hospital_home')    
@@ -499,11 +502,11 @@ def patient_transfer(request):
     return render(request,'patienttransfer.html',{'pats':pats,'query':query})   
 
 def view_hospital(request,id):
+    hospital_id=request.session.get('hospital_id')
     patients=get_object_or_404(patient,id=id)
-
     query=request.GET.get('search')
     print(query)
-    hospitals=hospital.objects.all()
+    hospitals=hospital.objects.filter(~Q(Login_id = hospital_id))
     if query:
         hospitals=hospital.objects.filter(Q(Hospital_Name__icontains=query) | Q(District__icontains=query) | Q(City__icontains=query))
     return render(request,'viewhospital.html',{'hospitals':hospitals,'query':query,'patients':patients})
@@ -511,8 +514,12 @@ def view_hospital(request,id):
 def view_medicine(request):
     medicine_id=request.session.get('pharm_id')
     med=get_object_or_404(pharmacy,Login_id=medicine_id)
+    query=request.GET.get('search')
+    print(query)
     meds=medicines.objects.filter(Pharmacy_id=med)
-    return render(request,'viewmedicine.html',{'meds':meds})
+    if query:
+        meds=medicines.objects.filter(Q(medicine_name__icontains=query) | Q(medicine_category__icontains=query)) 
+    return render(request,'viewmedicine.html',{'meds':meds,'query':query})
 
 def change_medicine(request,id):
     meds=get_object_or_404(medicines,id=id)
@@ -537,6 +544,21 @@ def confirm_transfer(request,id,ids):
     hospital_id=get_object_or_404(hospital,id=ids)
     transferpatient.objects.create(from_hospital=old_hospital_id,pat_id=patient_id,to_hospital=hospital_id)
     return redirect('hospital_home')
+
+def doctor_view_medicine(request):
+    doctor_id=request.session.get('doctor_id')
+    docs=get_object_or_404(doctor,login_id=doctor_id)
+    hos=doctor.hospital_login_id
+    # pharms=pharmacy.objects.filter(hos_id=hos)
+    query=request.GET.get('search')
+    print(query)
+    meds=medicines.objects.filter(Pharmacy_id__hos_id=docs.hospital_login_id)  
+    if query:
+        meds=medicines.objects.filter(Q(medicine_name__icontains=query) | Q(medicine_category__icontains=query))  
+    return render(request,'doctviewmed.html',{'meds':meds,'query':query})
+
+
+
 
 
 

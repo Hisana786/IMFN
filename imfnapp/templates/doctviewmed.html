@@ -1,4 +1,4 @@
-{% extends 'pharmindex.html' %}
+{% extends 'doctindex.html' %}
 {% block content %}
 <html>
     <body>
@@ -24,8 +24,6 @@
                 <td>{{med.medicine_name}}</td>
                 <td>{{med.medicine_details}}</td>
                 <td>{{med.amount }}</td>
-                <td><a href="{% url 'change_medicine' med.id %}">Change</a></td>
-                <td><a href="{% url 'remove_medicine' med.id %}">Remove</a></td>
             </tr>
             {% empty %}
             <tr>
