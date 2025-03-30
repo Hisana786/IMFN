@@ -60,6 +60,9 @@ urlpatterns= [
     path('change_medicine/<int:id>/',views.change_medicine,name='change_medicine'),
     path('remove_medicine/<int:id>/',views.remove_medicine,name='remove_medicine'),
     path('confirm_transfer/<int:id>/<int:ids>/',views.confirm_transfer,name='confirm_transfer'),
-    path('doctor_view_medicine/',views.doctor_view_medicine,name='doctor_view_medicine')
+    path('doctor_view_medicine/',views.doctor_view_medicine,name='doctor_view_medicine'),
+    path('view_transfer/',views.view_transfer,name='view_transfer'),
+    path('transfer_view/',views.transfer_view,name='transfer_view'),
+    path('add_prescription/<int:id>/',views.add_prescription,name='add_prescription')
 ]
 

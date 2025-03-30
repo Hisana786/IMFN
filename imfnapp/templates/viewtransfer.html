@@ -1,0 +1,29 @@
+{% extends 'hospindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Doctors Details</title>
+    </head>
+    <body>
+        <h2>Transfer Data</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>From Hospital</th>
+                <th>Patient Name</th>
+                <th>To Hospital</th>
+            </tr>
+            <tr>
+                {% for tran in trans %}
+                <td>{{tran.from_hospital}}</td>
+                <td>{{tran.pat_id}}</td>
+                <td>{{tran.to_hospital}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Patient Transferred</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

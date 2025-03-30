@@ -7,40 +7,34 @@
   <input type="text" id="search" name="search">
   <button type="submit">Search</button>
 </form>
-                    <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
-
-
-                        <thead>
-                          <tr>
-                            <th>Patient Name</th>
-                            <th>Address</th>
-                            <th>Gender</th>
-                            <th>DOB</th>
-                            <th>Contact No</th>
-                            <th>MR Number</th>
-                            <th>Email</th>
-                          </tr>
-                        </thead>
-  
-  
-                        <tbody>
-                          {% for patient in patientss %}
-                          <tr>
-                            <td>{{patient.name}}</td>
-                            <td>{{patient.address}}</td> 
-                            <td>{{patient.gender}}</td>
-                            <td>{{patient.DOB}}</td>
-                            <td>{{patient.contact_no}}</td>
-                            <td>{{patient.MRnumber}}</td>
-                            <td>{{patient.Login_id.Email}}</td>
-                            <td>
-                            <a href="{% url 'amb_search' patient.id  %}">Transfer</a> 
-                            </td>
-                          </tr>
-                          {% endfor %}
-                        </tbody>
-                      </table>
-                
-        
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Patient Name</th>
+      <th>Address</th>
+      <th>Gender</th>
+      <th>DOB</th>
+      <th>Contact No</th>
+      <th>MR Number</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient in patientss %}
+    <tr>
+      <td>{{patient.name}}</td>
+      <td>{{patient.address}}</td> 
+      <td>{{patient.gender}}</td>
+      <td>{{patient.DOB}}</td>
+      <td>{{patient.contact_no}}</td>
+      <td>{{patient.MRnumber}}</td>
+      <td>{{patient.Login_id.Email}}</td>
+      <td>
+        <a href="{% url 'amb_search' patient.id  %}">Transfer</a> 
+      </td>
+    </tr>
+    {% endfor %}
+  </body>
+</table>
 {% endblock %}
 

@@ -3,7 +3,7 @@
 <html>
     <body>
         <h2>Appointment</h2>
-        <table border ="2">
+        <table class="table table-striped">
             <tr>
                 <th>Patient Name</th>
                 <th>Date</th>
@@ -28,7 +28,10 @@
                 {% endif %}
                 <td>
                     <a href="{% url 'video_conference' appointment.id %}">Video Conference</a>
-                </td>   
+                </td> 
+                <td>
+                    <a href="{% url 'add_prescription' appointment.id %}">Prescription</a>
+                </td>  
                 
             </tr>
             {% empty %}

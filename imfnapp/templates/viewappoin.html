@@ -3,21 +3,22 @@
 <html>
     <body>
         <h2>Appointment</h2>
-        <table border ="2">
+        <table class="table table-striped">
             <tr>
                 <th>Patient Name</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Url</th>
+                <th>Conference</th>
                 <th>Payment Status</th>
                 <th>Cancel Status</th>
+                <th>Prescription</th>
             </tr>
             <tr>
                 {% for appointment in appointments %}
                 <td>{{appointment.patient_login_id.patient.name}}</td>
                 <td>{{appointment.Date}}</td>
                 <td>{{appointment.Time}}</td>
-                <td><a href="{{ appointment.Url }}" target="_blank">Video Conference</a></td>
+                <td><a href="{{ appointment.Url }}" target="_blank">Join</a></td>
                 {% if appointment.Payment_Status == 1 %}
                 <td>Paid</td>
                 {% else %}
@@ -28,10 +29,12 @@
                <td> <a href="{% url 'delete_appointment' appointment.id %}">Delete</a></td>
                {% else %}
                 <td>Appointment Active</td>
+                <td>{{appointment.Prescription}}</td> 
                 <td>
                     <a href="{% url 'edit_appointment' appointment.id %}">Edit</a> |
                     <a href="{% url 'cancel_appointment' appointment.id %}">Cancel</a>
-                </td>  
+                </td> 
+                
                 {% endif %}
             
             </tr>

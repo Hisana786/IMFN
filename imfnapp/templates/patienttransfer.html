@@ -7,37 +7,31 @@
   <input type="text" id="search" name="search">
   <button type="submit">Search</button>
 </form>
-                    <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
-
-
-                        <thead>
-                          <tr>
-                            <th>Patient Name</th>
-                            <th>Address</th>
-                            <th>Gender</th>
-                            <th>DOB</th>
-                            <th>Contact No</th>
-                            <th>MR Number</th>
-                            <th>Email</th>
-                          </tr>
-                        </thead>
-  
-  
-                        <tbody>
-                          {% for pat in pats %}
-                          <tr>
-                            <td>{{pat.name}}</td>
-                            <td>{{pat.address}}</td> 
-                            <td>{{pat.gender}}</td>
-                            <td>{{pat.DOB}}</td>
-                            <td>{{pat.contact_no}}</td>
-                            <td>{{pat.MRnumber}}</td>
-                            <td>{{pat.Login_id.Email}}</td>
-                            <td><a href="{% url 'view_hospital' pat.id %}">Transfer</a></td>
-                          </tr>
-                          {% endfor %}
-                        </tbody>
-                      </table>
-                
-        
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Patient Name</th>
+      <th>Address</th>
+      <th>Gender</th>
+      <th>DOB</th>
+      <th>Contact No</th>
+      <th>MR Number</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pat in pats %}
+    <tr>
+      <td>{{pat.name}}</td>
+      <td>{{pat.address}}</td> 
+      <td>{{pat.gender}}</td>
+      <td>{{pat.DOB}}</td>
+      <td>{{pat.contact_no}}</td>
+      <td>{{pat.MRnumber}}</td>
+      <td>{{pat.Login_id.Email}}</td>
+      <td><a href="{% url 'view_hospital' pat.id %}">Transfer</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

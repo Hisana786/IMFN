@@ -1,0 +1,18 @@
+{% extends 'doctindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title></title>
+        </title>
+    </head>
+    <body>
+        <h2>Prescription For
+            {{ appoints.patient_login_id.patient.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Prescription</button>
+        </form>
+    </body>
+</html>
+{% endblock %}

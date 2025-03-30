@@ -1,5 +1,6 @@
 from django import forms
 from .models import hospital,login,ambulance,patient,doctor,appointment,payment,Location,pharmacy,medicines
+from datetime import date
 
 class hospitalform(forms.ModelForm):
 
@@ -96,8 +97,9 @@ class appointmentform(forms.ModelForm):
         model=appointment
         fields=['Date','Time']
         widgets={
-            'Date':forms.TextInput(attrs={'type':'date'}),
-            'Time':forms.TextInput(attrs={'type':'time'})
+            'Date':forms.TextInput(attrs={'type':'date','min': date.today().strftime('%Y-%m-%d'), 'id':'appoint'}),
+            'Time':forms.TextInput(attrs={'type':'time'}),
+            'Prescription':forms.Textarea(attrs={'rows': 4, 'cols':50, 'placeholder': 'Enter Prescription...'})
 
         }    
 
@@ -127,7 +129,16 @@ class pharmacyform(forms.ModelForm):
 class medicinesform(forms.ModelForm):
     class Meta:
         model=medicines
-        fields=['medicine_category','company_name','medicine_name','medicine_details','amount','Pharmacy_id']              
+        fields=['medicine_category','company_name','medicine_name','medicine_details','amount','Pharmacy_id']  
+
+class Prescriptionform(forms.ModelForm):
+    class Meta:
+        model=appointment
+        fields=['Prescription']
+        widget={
+            'Prescription':forms.Textarea(attrs={'rows': 4, 'cols':50, 'placeholder': 'Enter Prescription...'})
+            }
+
 
     
 

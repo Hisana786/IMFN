@@ -85,6 +85,7 @@ class appointment(models.Model):
     Payment_Status = models.IntegerField(default=0)
     Cancel_status = models.IntegerField(default=0)
     Url = models.URLField(max_length=200,null=True,blank=True)
+    Prescription = models.TextField(blank=True, null=True)
 
 class payment(models.Model):
     Amount = models.IntegerField(default=0)

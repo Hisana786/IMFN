@@ -557,6 +557,41 @@ def doctor_view_medicine(request):
         meds=medicines.objects.filter(Q(medicine_name__icontains=query) | Q(medicine_category__icontains=query))  
     return render(request,'doctviewmed.html',{'meds':meds,'query':query})
 
+def view_transfer(request):
+    hospital_id=request.session.get('hospital_id')
+    hoss=get_object_or_404(hospital,Login_id=hospital_id)
+    trans=transferpatient.objects.filter(from_hospital=hoss)
+    return render(request,'viewtransfer.html',{'trans':trans})
+
+def transfer_view(request):
+    hospital_id=request.session.get('hospital_id')
+    hoss=get_object_or_404(hospital,Login_id=hospital_id)
+    trans=transferpatient.objects.filter(to_hospital=hoss)
+    return render(request,'viewtransfer.html',{'trans':trans})
+
+def add_prescription(request,id):
+    appoints=get_object_or_404(appointment,id=id)
+    if request.method=="POST":
+        form=Prescriptionform(request.POST,instance=appoints)
+        if form.is_valid():
+            pres=form.cleaned_data['Prescription']
+            appoints.Prescription=pres
+            appoints.save()
+            return redirect('view_appointment')
+
+    else:
+        form=Prescriptionform(instance=appoints)
+    return render(request,'addprescription.html',{'form':form,'appoints':appoints})
+
+
+
+
+
+
+
+
+
+
 
 
 

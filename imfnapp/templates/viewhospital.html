@@ -7,35 +7,29 @@
   <input type="text" id="search" name="search">
   <button type="submit">Search</button>
 </form>
-                    <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
-
-
-                        <thead>
-                          <tr>
-                            <th>Hospital Name</th>
-                            <th>Address</th>
-                            <th>District</th>
-                            <th>City</th>
-                            <th>Contact No</th>
-                            <th>Email</th>
-                          </tr>
-                        </thead>
-  
-  
-                        <tbody>
-                          {% for hospital in hospitals %}
-                          <tr>
-                            <td>{{hospital.Hospital_Name}}</td>
-                            <td>{{hospital.Address}}</td> 
-                            <td>{{hospital.District}}</td>
-                            <td>{{hospital.City}}</td>
-                            <td>{{hospital.Contact_No}}</td>
-                            <td>{{hospital.Login_id.Email}}</td>
-                            <td><a href="{% url 'confirm_transfer' patients.id hospital.id %}">Transfer</a></td>
-                          </tr>
-                          {% endfor %}
-                        </tbody>
-                      </table>
-                
-        
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Hospital Name</th>
+      <th>Address</th>
+      <th>District</th>
+      <th>City</th>
+      <th>Contact No</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for hospital in hospitals %}
+    <tr>
+      <td>{{hospital.Hospital_Name}}</td>
+      <td>{{hospital.Address}}</td> 
+      <td>{{hospital.District}}</td>
+      <td>{{hospital.City}}</td>
+      <td>{{hospital.Contact_No}}</td>
+      <td>{{hospital.Login_id.Email}}</td>
+      <td><a href="{% url 'confirm_transfer' patients.id hospital.id %}">Transfer</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}
