@@ -10,6 +10,11 @@
             {{ form.as_p }}
             <button type="submit">Submit</button>
         </form>
+        {% if messages %}
+    {% for message in messages %}
+        <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+{% endif %}
     </body>
     
 

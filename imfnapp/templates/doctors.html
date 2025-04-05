@@ -58,6 +58,7 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
+            <br><br>
             {{ login.as_p}}
             <button type="submit">Submit</button>
         </form>

@@ -145,9 +145,6 @@ def patientdatatable(request):
     patients=patient.objects.all()
     return render(request,'patientdatatable.html',{'patients':patients}) 
 
-
- 
-
 def hospitalprofile(request):
     hospital_id = request.session.get('hospital_id')
     print(hospital_id)
@@ -168,10 +165,7 @@ def hospitalprofile(request):
 
 def ambulanceprofile(request):
     ambulance_id = request.session.get('ambulance_id')
-
     print(ambulance_id)
-
-
     ambulance_login_data = get_object_or_404(login,id=ambulance_id)
     ambulance_data = get_object_or_404(ambulance,Login_id=ambulance_login_data)
  
@@ -292,12 +286,16 @@ def appointments(request,id):
     if request.method=='POST':
         form=appointmentform(request.POST)
         if form.is_valid():
-            app=form.save(commit=False)
-            app.patient_login_id=patient_login_data
-            app.doctor_login_id=doctorlogin
-            app.save()
-            
-            return redirect('payment',doctortbl.consultation_fee,app.id)
+            dates=form.cleaned_data['Date']
+            times=form.cleaned_data['Time']
+            if appointment.objects.filter(Date=dates,Time=times).exists():
+                messages.error(request,'This time slot is already booked.Please Choose Another')
+            else:
+                app=form.save(commit=False)
+                app.patient_login_id=patient_login_data
+                app.doctor_login_id=doctorlogin
+                app.save()
+                return redirect('payment',doctortbl.consultation_fee,app.id)
     else:        
         form=appointmentform() 
     return render(request,'appointment.html',{'form':form})
@@ -341,7 +339,6 @@ def cancel_appointment(request,id):
     messages.success(request,"Appointment canceled successfully.")
     return redirect('patient_home')
 
-
 def views_appointments(request):
     patient_id=request.session.get('patient_id')
     patient_appoin = get_object_or_404(login,id=patient_id)
@@ -358,11 +355,8 @@ def video_conference(request, id):
     user_type = None
     doctor_id=request.session.get('doctor_id')
     dr = get_object_or_404(login, id=doctor_id)
-
     user_type = dr.user_type
-
     return render(request, 'videoconference.html', {'video': video, 'user_type': user_type})
-
 
 def save_appointment_url(request,id):
     if request.method == 'POST':

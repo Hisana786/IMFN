@@ -6,7 +6,7 @@ class hospital(models.Model):
     Address = models.CharField(max_length=100)
     District = models.CharField(max_length=30)
     City = models.CharField(max_length=40)
-    Contact_No = models.CharField(max_length=15)
+    Contact_No = models.CharField(max_length=10)
     Login_id = models.ForeignKey("login", on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.Hospital_Name
@@ -23,7 +23,7 @@ class ambulance(models.Model):
     Ambulance_Category = models.CharField(max_length=35)
     Ambulance_Type = models.CharField(max_length=50)
     Vehicle_NO = models.CharField(max_length=15)
-    Contact_No = models.CharField(max_length=15)
+    Contact_No = models.CharField(max_length=10)
     Driver_Name = models.CharField(max_length=30)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
     hospital_id = models.ForeignKey("hospital", on_delete=models.CASCADE, null=True, blank=True)
@@ -39,7 +39,7 @@ class patient(models.Model):
     address = models.CharField(max_length=100)
     gender = models.CharField(max_length=25, choices=GENDER_CHOICES, default="Male")
     DOB = models.DateField()
-    contact_no = models.CharField(max_length=25)
+    contact_no = models.CharField(max_length=10)
     Login_id = models.OneToOneField("login", on_delete=models.CASCADE, null=True, blank=True,related_name='patient')
     MRnumber=models.CharField(max_length=100)
     def save(self, *args, **kwargs):
@@ -68,7 +68,7 @@ class doctor(models.Model):
     DOB = models.DateField(null=False) 
     specialisation = models.CharField(max_length=40)
     year_of_experience = models.CharField(max_length=20)
-    contact_no = models.CharField(max_length=15)
+    contact_no = models.CharField(max_length=10)
     consultation_fee = models.IntegerField(default=0) 
     # OneToOneField for hospital
     hospital_login_id = models.ForeignKey('hospital', on_delete=models.CASCADE, related_name='doctor_login',null=True,blank=True)
@@ -106,7 +106,7 @@ class Location(models.Model):
 
 class pharmacy(models.Model):
     Pharmacy_id= models.CharField(max_length=10)
-    contact_no = models.CharField(max_length=15)
+    contact_no = models.CharField(max_length=10)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
     hos_id = models.ForeignKey("hospital", on_delete=models.CASCADE, related_name="hos", default=True)
     def __str__(self):
