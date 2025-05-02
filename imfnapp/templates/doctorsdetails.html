@@ -20,7 +20,13 @@
             <tr>
                 {% for doctorss in doctorss %}
                 <td>{{doctorss.doctor_name}}</td>
-                <td>{{doctorss.photo}}</td>
+                <td>
+                    <img
+                    src="{{doctorss.photo.url}}"
+                    width="90px"
+                    alt=""
+                    />
+                </td>
                 <td>{{doctorss.gender}}</td>
                 <td>{{doctorss.DOB}}</td>
                 <td>{{doctorss.specialisation}}</td>

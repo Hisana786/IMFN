@@ -1,5 +1,5 @@
 from django import forms
-from .models import hospital,login,ambulance,patient,doctor,appointment,payment,Location,pharmacy,medicines
+from .models import hospital,login,ambulance,patient,doctor,appointment,payment,Location,pharmacy,medicines,complaint,xray,notification
 from datetime import date
 
 class hospitalform(forms.ModelForm):
@@ -75,7 +75,7 @@ class patientform (forms.ModelForm):
          }
 class profileform(forms.ModelForm):
      #password=forms.CharField(widget=forms.PasswordInput)
-     contact_No=forms.CharField(max_length=10,min_length=10)
+     contact_no=forms.CharField(max_length=10,min_length=10)
      class  Meta:
         model=patient
         fields=['name','address','gender','DOB','contact_no']
@@ -90,7 +90,7 @@ class logineditform(forms.ModelForm):
         fields = ['Email']
 
 class doctorprofileform(forms.ModelForm):
-    contact_No=forms.CharField(max_length=10,min_length=10)
+    contact_no=forms.CharField(max_length=10,min_length=10)
     class Meta:
         model=doctor
         fields=['doctor_name','photo','gender','DOB','specialisation','year_of_experience','contact_no']
@@ -134,7 +134,7 @@ class Locationform(forms.ModelForm):
         fields=['']
 
 class pharmacyform(forms.ModelForm):
-    Contact_No=forms.CharField(max_length=10,min_length=10)
+    contact_no=forms.CharField(max_length=10,min_length=10)
     class Meta:
         model=pharmacy
         fields=['Pharmacy_id','contact_no']
@@ -152,6 +152,36 @@ class Prescriptionform(forms.ModelForm):
         widget={
             'Prescription':forms.Textarea(attrs={'rows': 4, 'cols':50, 'placeholder': 'Enter Prescription...'})
             }
+        
+class complaintform(forms.ModelForm):
+    class Meta:
+        model=complaint
+        fields=['complaint']
+        widget={
+            'complaint':forms.Textarea(attrs={'rows': 4, 'cols':50, 'placeholder': 'Enter Complaint...'})
+            }
+
+class xrayform(forms.ModelForm):
+    class Meta:
+        model=xray
+        fields=['xray_file']   
+
+class replyform(forms.ModelForm):
+    class Meta:
+        model=complaint
+        fields=['reply']
+        widget={
+            'reply':forms.Textarea(attrs={'rows': 4, 'cols':50, 'placeholder': 'Enter Reply...'})
+            }             
+        
+class notificationform(forms.ModelForm):
+    class Meta:
+        model=notification
+        fields=['noti']
+        widget={
+            'noti':forms.Textarea(attrs={'rows': 4, 'cols':50, 'placeholder': 'Enter Reply...'})
+            }  
+                          
 
 
     

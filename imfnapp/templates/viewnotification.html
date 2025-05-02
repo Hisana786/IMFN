@@ -1,0 +1,23 @@
+{% extends 'hospindex.html' %}
+{% block content %}
+<html>
+    <body>
+        <table class="table table-striped">
+            <tr>
+                <th>Notification</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                {% for notis in notis %}
+                <td>{{notis.noti}}</td>
+                <td>{{notis.current_dates}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Notification</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

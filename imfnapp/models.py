@@ -27,7 +27,7 @@ class ambulance(models.Model):
     Driver_Name = models.CharField(max_length=30)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
     hospital_id = models.ForeignKey("hospital", on_delete=models.CASCADE, null=True, blank=True)
-
+    
 
 class patient(models.Model):
     GENDER_CHOICES = [
@@ -86,6 +86,11 @@ class appointment(models.Model):
     Cancel_status = models.IntegerField(default=0)
     Url = models.URLField(max_length=200,null=True,blank=True)
     Prescription = models.TextField(blank=True, null=True)
+    
+    def doctor_name(self):
+        doctor_obj = self.doctor_login_id.doctors.first()
+        return doctor_obj.doctor_name if doctor_obj else "Unknown"
+
 
 class payment(models.Model):
     Amount = models.IntegerField(default=0)
@@ -103,6 +108,7 @@ class Location(models.Model):
     pat_id = models.ForeignKey("patient", on_delete=models.CASCADE, related_name="patients", default=True)
     hosp_id =  models.ForeignKey("hospital", on_delete=models.CASCADE, related_name="hosps", default=True)
     current_date = models.DateField(auto_now_add=True)
+    complete_status=models.IntegerField(default=0)
 
 class pharmacy(models.Model):
     Pharmacy_id= models.CharField(max_length=10)
@@ -124,7 +130,28 @@ class transferpatient(models.Model):
     from_hospital=models.ForeignKey(hospital,on_delete=models.CASCADE,related_name="hospi",default=True)
     to_hospital=models.ForeignKey(hospital,on_delete=models.CASCADE,related_name="hospit",default=True)
     pat_id=models.ForeignKey(patient,on_delete=models.CASCADE,related_name="pat",default=True)
-    current_date=models.DateField(auto_now_add=True)      
+    current_date=models.DateField(auto_now_add=True) 
+    records=models.TextField(null=True, blank=True) 
+                             
+class complaint(models.Model):
+    complaint=models.TextField(blank=True, null=True)
+    patt_id=models.ForeignKey("patient", on_delete=models.CASCADE, related_name="patent", default=True)
+    current_date=models.DateField(auto_now_add=True)
+    reply=models.TextField(blank=True, null=True)  
+
+class xray(models.Model):
+    xray_file = models.FileField(upload_to='xray_files/', null=True, blank=True) 
+    current_date=models.DateField(auto_now_add=True)  
+    patient_id = models.ForeignKey("patient", on_delete=models.CASCADE, null=True, blank=True,related_name='pati')  
+
+class notification(models.Model):
+    noti = models.TextField(blank=True, null=True) 
+    current_dates = models.DateField(auto_now_add=True) 
+      
+    
+      
+
+     
     
 
 

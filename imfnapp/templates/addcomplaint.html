@@ -1,0 +1,22 @@
+{% extends 'patindex.html' %}
+{% block content %}
+<html>
+    <head>
+        <title></title>
+        </title>
+    </head>
+    <body>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h2>Complaint </h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    </body>
+</html>
+{% endblock %}

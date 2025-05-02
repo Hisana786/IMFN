@@ -1,5 +1,7 @@
 from django.urls import path
 import imfnapp.userform
+from django.conf import settings
+from django.conf.urls.static import static
 from .import views
 
 urlpatterns= [
@@ -23,7 +25,7 @@ urlpatterns= [
     path('register_patient/',views.register_patient,name='register_patient'),
     path('profile/',views.profile,name='profile'),
     path('register_doctor/',views.register_doctor,name='register_doctor'),
-    path('doctordatatable/',views.doctordatatable,name='datatable'),
+    path('doctordatatable/',views.doctordatatable,name='doctordatatable'),
     path('patientdatatable/',views.patientdatatable,name='patientdatatable'),
     path('doctorprofile/',views.doctorprofile,name='doctorprofile'),
     path('patient_home/',views.patient_index,name='patient_home'),
@@ -63,6 +65,18 @@ urlpatterns= [
     path('doctor_view_medicine/',views.doctor_view_medicine,name='doctor_view_medicine'),
     path('view_transfer/',views.view_transfer,name='view_transfer'),
     path('transfer_view/',views.transfer_view,name='transfer_view'),
-    path('add_prescription/<int:id>/',views.add_prescription,name='add_prescription')
-]
+    path('add_prescription/<int:id>/',views.add_prescription,name='add_prescription'),
+    path('complete_transfer/<int:id>/',views.complete_transfer,name='complete_transfer'),
+    path('add_complaint/',views.add_complaint,name='add_complaint'),
+    path('admin_view_complaint/',views.admin_view_complaint,name='admin_view_complaint'),
+    path('upload_xray/',views.upload_xray,name='upload_xray'),
+    path('reply/<int:id>/',views.reply,name='reply'),
+    path('view_payment/',views.view_payment,name='view_payment'),
+    path('view_reply/',views.view_reply,name='view_reply'),
+    path('notifications/',views.notifications,name='notifications'),
+    path('view_notification/',views.view_notification,name='view_notification'),
+    path('record/<int:id>/',views.record,name='record'),
+]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+
+
 

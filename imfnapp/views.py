@@ -385,11 +385,11 @@ def patient_search(request):
 def amb_search(request,id):
     hospitals_id=request.session.get('hospital_id')
     hospitalss = get_object_or_404(hospital,Login_id=hospitals_id)
-    Patient=get_object_or_404(patient,id=id)
+    pats=get_object_or_404(patient,id=id)
     # pat=patient.objects.filter(MRnumber=Patient)
-    ambs=ambulance.objects.filter(hospital_id=hospitalss)
-    return render(request,'ambsearch.html',{'ambs':ambs,'pat':Patient}) 
-
+    ambs=ambulance.objects.filter(hospital_id=hospitalss) 
+    return render(request,'ambsearch.html',{'ambs':ambs,'pats':pats})
+    
 
 def save_location(request):
     hospitals_id=request.session.get('hospital_id')
@@ -449,6 +449,13 @@ def view_location(request):
     ambs=get_object_or_404(ambulance,Login_id=ambulance_id)
     locations=Location.objects.filter(amb_login_id=ambs)
     return render(request,'viewlocation.html',{'locations':locations})
+
+def complete_transfer(request,id):
+    c=get_object_or_404(Location,id=id)
+    c.complete_status=1
+    c.save()
+    messages.success(request,"Transfer Completed")
+    return redirect('ambulance_home')
 
 def hospital_view_location(request):
     hospital_id=request.session.get('hospital_id')
@@ -536,6 +543,7 @@ def confirm_transfer(request,id,ids):
     old_hospital_id=get_object_or_404(hospital,Login_id=hospital_ids)
     patient_id=get_object_or_404(patient,id=id)
     hospital_id=get_object_or_404(hospital,id=ids)
+
     transferpatient.objects.create(from_hospital=old_hospital_id,pat_id=patient_id,to_hospital=hospital_id)
     return redirect('hospital_home')
 
@@ -576,6 +584,136 @@ def add_prescription(request,id):
     else:
         form=Prescriptionform(instance=appoints)
     return render(request,'addprescription.html',{'form':form,'appoints':appoints})
+
+def add_complaint(request):
+    patient_id=request.session.get('patient_id')
+    pats=get_object_or_404(patient,Login_id=patient_id)
+    if request.method=="POST":
+
+        form=complaintform(request.POST)
+        if form.is_valid():
+            comp = form.save(commit=False)
+            comp.patt_id=pats
+            comp.save()
+            return redirect('patient_home')
+    else:
+        form=complaintform()
+    return render(request,'addcomplaint.html',{'form':form})
+
+def admin_view_complaint(request):
+    comps=complaint.objects.all()
+    return render(request,'viewcomplaint.html',{'comps':comps})
+
+def upload_xray(request):
+    patient_id=request.session.get('patient_id')
+    patient_xray = get_object_or_404(patient,Login_id=patient_id)
+    if request.method=='POST':
+        form=xrayform(request.POST,request.FILES)
+        if form.is_valid():
+            xray=form.save(commit=False)
+            xray.patient_id=patient_xray
+            xray.save()
+            
+            return redirect('patient_home')
+    else:
+        form=xrayform(instance=patient_xray)
+    return render(request,'xray.html',{'form':form})
+
+def reply(request,id):
+    rep=get_object_or_404(complaint,id=id)
+    if request.method=="POST":
+        form=replyform(request.POST,instance=rep)
+        if form.is_valid():
+            reps=form.cleaned_data['reply']
+            rep.reply=reps
+            rep.save()
+            return redirect('admin_view_complaint')
+
+    else:
+        form=replyform(instance=rep)
+    return render(request,'reply.html',{'form':form,'rep':rep})
+
+from django.db.models import Prefetch
+
+def view_payment(request):
+    hospital_id = request.session.get('hospital_id')
+    hos_pay = get_object_or_404(hospital, Login_id=hospital_id)
+
+    # Get doctors related to this hospital
+    doctors = doctor.objects.filter(hospital_login_id=hos_pay)
+
+    # Appointments with payment done, by doctors of this hospital
+    paytm = appointment.objects.filter(
+        Payment_Status=1,
+        doctor_login_id__in=doctors.values_list('login_id', flat=True)
+    ).select_related('doctor_login_id', 'patient_login_id')
+
+    # Prepare doctor name map
+    doctor_map = {d.login_id.id: d.doctor_name for d in doctors}
+
+    # Prepare patient info map (only needed patients)
+    patient_logins = [appt.patient_login_id.id for appt in paytm]
+    patient_objs = patient.objects.filter(Login_id__in=patient_logins)
+    patient_map = {p.Login_id.id: p for p in patient_objs}
+
+    # Attach doctor and patient info to each appointment
+    for appt in paytm:
+        appt.doctor_name = doctor_map.get(appt.doctor_login_id.id, "Unknown")
+        appt.patient_obj = patient_map.get(appt.patient_login_id.id)
+
+    return render(request, 'viewpayments.html', {'paytm': paytm})
+
+def view_reply(request):
+    patient_id=request.session.get('patient_id')
+    pats=get_object_or_404(patient,Login_id=patient_id)
+    compla=complaint.objects.filter(patt_id=pats)
+    return render(request,'viewreply.html',{'compla':compla})
+
+def notifications(request):
+    if request.method=="POST":
+        form=notificationform(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admins')
+    else:
+        form=notificationform()
+    return render(request,'notification.html',{'form':form})
+
+def view_notification(request):
+    notis=notification.objects.all()
+    return render(request,'viewnotification.html',{'notis':notis})
+
+def record(request,id):
+    pat=get_object_or_404(login,id=id)
+    pats=appointment.objects.filter(patient_login_id=pat)
+    return render(request,'record.html',{'pats':pats})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

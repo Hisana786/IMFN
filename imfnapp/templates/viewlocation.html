@@ -21,6 +21,7 @@
                 <td>{{location.pat_id.name}}</td>
                 <td>{{location.hosp_id.Hospital_Name}}</td>
                 <td>{{location.current_date}}</td>
+                <td><a href="{% url 'complete_transfer' location.id %}">Complete</a></td>
             </tr>
             {% empty %}
             <tr>

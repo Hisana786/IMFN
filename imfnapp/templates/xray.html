@@ -1,0 +1,17 @@
+{% extends 'patindex.html' %}
+{% block content %}
+
+<html>
+    <head>
+        <title>Form </title>
+    </head>
+    <body>
+        <h1>X-ray</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
+{% endblock %}

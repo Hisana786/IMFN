@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Medi</title>
+    <title>IMFN</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -55,18 +55,9 @@
                                             <ul id="navigation">
                                                 <li><a href="{% url 'hospitalsearch' %}">Hospital</a></li>
                                                 <li><a href="{% url 'views_appointments' %}">Appointment</a></li>
-                                                <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                                    <ul class="submenu">
-                                                        <li><a href="blog.html">blog</a></li>
-                                                        <li><a href="single-blog.html">single-blog</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                                    <ul class="submenu">
-                                                        <li><a href="department.html">Deportment</a></li>
-                                                        <li><a href="elements.html">elements</a></li>
-                                                    </ul>
-                                                </li>
+                                                <li><a href="{% url 'add_complaint' %}">Complaint</a></li>
+                                                <li><a href="{% url 'upload_xray' %}">X-ray</a></li>
+                                                <li><a href="{% url 'view_reply' %}">View Reply</a></li>
                                                 <li><a href="{% url 'profile' %}">Profile</a></li>
                                             </ul>
                                         </nav>
@@ -88,19 +79,20 @@
         </div>
     </header>
     <!-- header-end -->
-           <!-- bradcam_area_start  -->
-    <div class="bradcam_area breadcam_bg">
+       <!-- bradcam_area_start  -->
+       <div class="bradcam_area breadcam_bg">
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
+                <!-- <div class="col-xl-12"> -->
                     <div class="bradcam_text">
-                    <h3></h3>
+                        <h3></h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- bradcam_area_end  -->
+           
 {% block content %}
 
 

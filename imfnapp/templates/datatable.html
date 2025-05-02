@@ -336,6 +336,7 @@
                           <th>Hospital Name</th>
                           <th>Photo</th>
                           <th>Email</th>
+                          <th>Consultation Fee</th>
                           
                           
                           
@@ -352,12 +353,10 @@
                           <td>{{doctor.specialisation}}</td>
                           <td>{{doctor.year_of_experience}}</td>
                           <td>{{doctor.contact_no}}</td>
-                          <td>{{doctor.hospital_name}}</td>
+                          <td>{{doctor.hospital_login_id}}</td>
                           <td>{{doctor.photo}}</td>
-                          
-                          <td>{{doctor.Login_id.Email}}</td>
-                          
-                          
+                          <td>{{doctor.login_id.Email}}</td>
+                          <td>{{doctor.consultation_fee}}</td>
                           
                         </tr>
                         {% endfor %}

@@ -23,6 +23,11 @@
                 <td>{{location.amb_login_id.Driver_Name}}</td>
                 <td>{{location.hosp_id.Hospital_Name}}</td>
                 <td>{{location.current_date}}</td>
+                {% if location.complete_status == 1 %}
+                <td>Completed</td>
+                {% else %}
+                <td>Not Completed</td>
+                {% endif %}
             </tr>
             {% empty %}
             <tr>

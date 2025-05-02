@@ -1,0 +1,23 @@
+{% extends 'hospindex.html' %}
+{% block content %}
+<html>
+    <body>
+        <table class="table table-striped">
+            <tr>
+                <th>Complaint</th>
+                <th>Reply</th>
+            </tr>
+            <tr>
+                {% for compla in compla %}
+                <td>{{compla.complaint}}</td>
+                <td>{{compla.reply}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Complaint</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

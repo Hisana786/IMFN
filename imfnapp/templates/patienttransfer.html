@@ -29,6 +29,7 @@
       <td>{{pat.contact_no}}</td>
       <td>{{pat.MRnumber}}</td>
       <td>{{pat.Login_id.Email}}</td>
+      <td><a href="{% url 'record' pat.Login_id_id %}">Record</a></td>
       <td><a href="{% url 'view_hospital' pat.id %}">Transfer</a></td>
     </tr>
     {% endfor %}

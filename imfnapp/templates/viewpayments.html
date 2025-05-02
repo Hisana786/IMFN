@@ -1,0 +1,34 @@
+{% extends 'hospindex.html' %}
+{% block content %}
+<html>
+    <body>
+        <h2>Appointment</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Doctor Name</th>
+                <th>Patient Name</th>
+                <th>MR Number</th>
+                <th>Gender</th>
+                <th>Contact No</th>
+              </tr> 
+                {% for p in paytm %}
+                <tr>
+                  <td>{{ p.Date }}</td>
+                  <td>{{ p.Time }}</td>
+                  <td>{{ p.doctor_name }}</td>
+                  <td>{{ p.patient_obj.name }}</td>
+                  <td>{{ p.patient_obj.MRnumber }}</td>
+                  <td>{{ p.patient_obj.gender }}</td>
+                  <td>{{ p.patient_obj.contact_no }}</td>
+                </tr>
+                {% endfor %}
+         
+            <tr>
+                <td colspan="4">No paid appointment</td>
+            </tr>
+        </table>
+    </body>
+</html>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'hospindex.html' %}
+{% block content %}
+{% load static %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Patient Name</th>
+      <th>Doctor Name</th>
+      <th>Prescription</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pat in pats %}
+    <tr>
+      <td>{{pat.patient_login_id.patient.name}}</td>
+      <td>
+        {% with pat.doctor_login_id.Doctor_login.all|first as doctor %}
+          {% if doctor %}
+            {{ doctor.doctor_name }}
+          {% else %}
+            No doctor assigned
+          {% endif %}
+        {% endwith %}
+      </td>
+      <td>{{pat.Prescription}}</td>
+      <td>{{pat.Date}}</td> 
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

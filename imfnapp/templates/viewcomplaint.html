@@ -246,7 +246,7 @@
                       </li>
                       <li class="nav-item">
                         <a class="dropdown-item">
-                          <span class="image"><img src="{% static 'admin/images/img.jpg' %}" alt="Profile Image" /></span>
+                          <span class="image"><img src="{% static 'admin/images/img.jpg' %}" alt="Profile Image" /></spa{' %}% static 'admin
                           <span>
                             <span>John Smith</span>
                             <span class="time">3 mins ago</span>
@@ -295,10 +295,9 @@
             <div class="clearfix"></div>
 
             <div class="row">
-             
-
               
 
+              
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
@@ -328,27 +327,22 @@
                     <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
-                          <th>Ambulance Category</th>
-                          <th>Ambulance Type</th>
-                          <th>Vehicle No</th>
-                          <th>Contact No</th>
-                          <th>Driver Name</th>
-                          <th>Email</th>
-                          <th>Hospital Name</th>
+                            <th>Complaint</th>
+                            <th>Patient Name</th>
+                            <th>Date</th>
                         </tr>
-                      </thead>
+                    </thead>
 
 
-                      <tbody>
-                        {% for ambulance in ambulances %}
+                    <tbody>
                         <tr>
-                          <td>{{ambulance.Ambulance_Category}}</td>
-                          <td>{{ambulance.Ambulance_Type}}</td>
-                          <td>{{ambulance.Vehicle_NO}}</td>
-                          <td>{{ambulance.Contact_No}}</td>
-                          <td>{{ambulance.Driver_Name}}</td>
-                          <td>{{ambulance.Login_id.Email}}</td>
-                          <td>{{ambulance.hospital_id}}</td>
+                            {% for comp in comps %}
+                            <td>{{comp.complaint}}</td>
+                            <td>{{comp.patt_id}}</td>
+                            <td>{{comp.current_date}}</td>
+                            <td>
+                                <a href="{% url 'reply' comp.id %}">:Reply</a>
+                            </td>
                         </tr>
                         {% endfor %}
                       </tbody>
@@ -360,7 +354,6 @@
                 </div>
               </div>
 
-             
             </div>
           </div>
         </div>
@@ -409,3 +402,4 @@
 
   </body>
 </html>
+           
