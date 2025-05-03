@@ -24,12 +24,16 @@
                 <td>{{ambs.Contact_No}}</td>
                 <td>{{ambs.Driver_Name}}</td>
                 <td>{{ambs.Login_id.Email}}</td>
-                <td> <a href="#" onclick="openMapModal({{ ambs.id }}, {{ pat.id }}, {{ hos.id }})">CONFIRM TRANSFER</a></td>
+                <td> <a href="#" onclick="openMapModal({{ ambs.id|default:'0' }}, {{ pats.id|default:'0' }}, {{ hos.id|default:'0' }})">CONFIRM TRANSFER</a>
+                </td>
             </tr>
             {% endfor %}
         </table>
+        <p>pat.id: {{ pat.id }}</p>
+<p>hos.id: {{ hos.id }}</p>
+
          <!-- Modal for Map -->
-    <div id="mapModal" style="display: none;">
+    <div id="mapModal">
         <div id="map" style="width: 500px; height: 400px;"></div>
         <button onclick="saveLocation()">Confirm Location</button>
     </div>
