@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.core.files.base import ContentFile
+import uuid
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
 from .forms import *
@@ -101,33 +103,44 @@ def hospital_login(request):
         if form.is_valid():
             username = form.cleaned_data['Email']
             password = form.cleaned_data['Password']
-            
+
             try:
                 user = login.objects.get(Email=username)
+                
                 if user.Password == password:
-                    if user.user_type == 'hospital':
-                        request.session['hospital_id'] = user.id
-                        return redirect('hospital_home')
-                    elif user.user_type == 'ambulance':
-                        request.session['ambulance_id'] = user.id
-                        return redirect('ambulance_home')
-                    elif user.user_type == 'patient':
-                        request.session['patient_id'] = user.id
-                        return redirect('patient_home')
-                    elif user.user_type == 'doctor':
-                        request.session['doctor_id'] = user.id
-                        return redirect('doctor_home')
-                    elif user.user_type == 'pharmacy':
-                        request.session['pharm_id'] = user.id
-                        return redirect('pharmacy_home')
-                else:
-                    messages.error(request, 'Invalid password')
-            except login.DoesNotExist:  # Correcting the exception handling
+                        if user.user_type == 'hospital':
+                            try:
+                                hos = hospital.objects.get(Login_id=user)
+                                if user.status == 1:
+                                    request.session['hospital_id'] = user.id
+                                    return redirect('hospital_home')
+                                elif user.status == 0:
+                                    messages.error(request, 'Waiting for admin confirmation.')
+                                elif user.status == 2:
+                                    messages.error(request, 'Your account has been rejected by the admin.')
+                            except hospital.DoesNotExist:
+                                messages.error(request, 'Hospital profile not found.')
+                        elif user.user_type == 'ambulance':
+                            request.session['ambulance_id'] = user.id
+                            return redirect('ambulance_home')
+                        elif user.user_type == 'patient':
+                            request.session['patient_id'] = user.id
+                            return redirect('patient_home')
+                        elif user.user_type == 'doctor':
+                            request.session['doctor_id'] = user.id
+                            return redirect('doctor_home')
+                        elif user.user_type == 'pharmacy':
+                            request.session['pharm_id'] = user.id
+                            return redirect('pharmacy_home')
+                        else:
+                            messages.error(request, 'Invalid password')
+            except login.DoesNotExist:
                 messages.error(request, 'User does not exist')
-
     else:
         form = logincheckform()
+        
     return render(request, "login.html", {'form': form})
+
 
 def datatable(request):
     hospitals=hospital.objects.all()
@@ -387,7 +400,7 @@ def amb_search(request,id):
     hospitalss = get_object_or_404(hospital,Login_id=hospitals_id)
     pats=get_object_or_404(patient,id=id)
     # pat=patient.objects.filter(MRnumber=Patient)
-    ambs=ambulance.objects.filter(hospital_id=hospitalss) 
+    ambs=ambulance.objects.filter(hospital_id=hospitalss,availability_status=1) 
     return render(request,'ambsearch.html',{'ambs':ambs,'pats':pats})
     
 
@@ -454,6 +467,9 @@ def complete_transfer(request,id):
     c=get_object_or_404(Location,id=id)
     c.complete_status=1
     c.save()
+    abc=c.amb_login_id
+    abc.availability_status=1
+    abc.save()
     messages.success(request,"Transfer Completed")
     return redirect('ambulance_home')
 
@@ -538,14 +554,32 @@ def remove_medicine(request,id):
     c.delete()
     return redirect('pharmacy_home')
 
-def confirm_transfer(request,id,ids):
-    hospital_ids=request.session.get('hospital_id')
-    old_hospital_id=get_object_or_404(hospital,Login_id=hospital_ids)
-    patient_id=get_object_or_404(patient,id=id)
-    hospital_id=get_object_or_404(hospital,id=ids)
+def confirm_transfer(request, id, ids):
+    hospital_ids = request.session.get('hospital_id')
+    old_hospital_id = get_object_or_404(hospital, Login_id=hospital_ids)
+    patient_id = get_object_or_404(patient, id=id)
+    hospital_id = get_object_or_404(hospital, id=ids)
+    log = patient_id.Login_id
 
-    transferpatient.objects.create(from_hospital=old_hospital_id,pat_id=patient_id,to_hospital=hospital_id)
+    # Fetch all appointments for the patient
+    all_appointments = appointment.objects.filter(patient_login_id=log)
+
+    # Concatenate all prescriptions
+    all_prescriptions = "\n\n---\n\n".join([
+        f"Date: {app.Date}, Time: {app.Time}\n{app.Prescription or 'No prescription'}"
+        for app in all_appointments
+    ])
+
+    # Create a single transfer record with all prescriptions
+    transferpatient.objects.create(
+        from_hospital=old_hospital_id,
+        pat_id=patient_id,
+        to_hospital=hospital_id,
+        records=all_prescriptions
+    )
+
     return redirect('hospital_home')
+
 
 def doctor_view_medicine(request):
     doctor_id=request.session.get('doctor_id')
@@ -687,6 +721,39 @@ def record(request,id):
     pat=get_object_or_404(login,id=id)
     pats=appointment.objects.filter(patient_login_id=pat)
     return render(request,'record.html',{'pats':pats})
+
+def Logout(request):
+    request.session.flush()
+    return redirect('logins')
+
+def hospital_approve(request, id):
+    try:
+        hos = hospital.objects.get(id=id)
+        hos.Login_id.status = 1  # Approved
+        hos.Login_id.save()
+        messages.success(request, f"{hos.Hospital_Name} approved.")
+    except hos.DoesNotExist:
+        messages.error(request, "Hospital not found.")
+    return redirect('datatable')
+
+def hospital_rejection(request, id):
+    try:
+        hosp = hospital.objects.get(id=id)
+        hosp.Login_id.status = 2  # Rejected
+        hosp.Login_id.save()
+        messages.error(request, f"{hosp.Hospital_Name} rejected.")
+    except hosp.DoesNotExist:
+        messages.error(request,"Hospital not found.")
+    return redirect('datatable')
+
+def doctor_view_record(request):
+    doctor_id=request.session.get('doctor_id')
+    docs=get_object_or_404(doctor,login_id=doctor_id)
+    hos=docs.hospital_login_id
+    pats=transferpatient.objects.filter(to_hospital=hos)
+    return render(request,'viewrecord.html',{'pats':pats})
+
+
 
 
 

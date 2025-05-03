@@ -1,0 +1,31 @@
+{% extends 'doctindex.html' %}
+{% block content %}
+{% load static %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Patient Name</th>
+      <th>From Hospital</th>
+      <th>Record</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pat in pats %}
+    <tr>
+      <td>{{pat.pat_id}}</td>
+      <td>{{pat.from_hospital}}</td> 
+      <td>
+        {% if pat.records %}
+        <a href="{{pat.records.url}}">Download</a>
+        {% else %}
+        No File
+        {% endif %}
+
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3">No Transfers Found</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

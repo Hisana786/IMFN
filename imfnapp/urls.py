@@ -76,6 +76,10 @@ urlpatterns= [
     path('notifications/',views.notifications,name='notifications'),
     path('view_notification/',views.view_notification,name='view_notification'),
     path('record/<int:id>/',views.record,name='record'),
+    path('Logout/',views.Logout,name='Logout'),
+    path('hospital_approve/<int:id>/',views.hospital_approve,name='hospital_approve'),
+    path('hospital_rejection/<int:id>/',views.hospital_rejection,name='hospital_rejection'),
+    path('doctor_view_record',views.doctor_view_record,name='doctor_view_record'),
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
 

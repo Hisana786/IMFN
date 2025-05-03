@@ -17,6 +17,8 @@ class login(models.Model):
     Email = models.EmailField(unique=True)
     Password = models.CharField(max_length=10)
     user_type = models.CharField(max_length=10)
+    status_choice = ((1, 'Approved'),(2,'Rejected'))
+    status = models.IntegerField(choices=status_choice,default=0)
 
 
 class ambulance(models.Model):
@@ -27,7 +29,9 @@ class ambulance(models.Model):
     Driver_Name = models.CharField(max_length=30)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
     hospital_id = models.ForeignKey("hospital", on_delete=models.CASCADE, null=True, blank=True)
-    
+    availability_status = models.IntegerField(default=0) 
+
+
 
 class patient(models.Model):
     GENDER_CHOICES = [
@@ -87,10 +91,6 @@ class appointment(models.Model):
     Url = models.URLField(max_length=200,null=True,blank=True)
     Prescription = models.TextField(blank=True, null=True)
     
-    def doctor_name(self):
-        doctor_obj = self.doctor_login_id.doctors.first()
-        return doctor_obj.doctor_name if doctor_obj else "Unknown"
-
 
 class payment(models.Model):
     Amount = models.IntegerField(default=0)
@@ -131,7 +131,7 @@ class transferpatient(models.Model):
     to_hospital=models.ForeignKey(hospital,on_delete=models.CASCADE,related_name="hospit",default=True)
     pat_id=models.ForeignKey(patient,on_delete=models.CASCADE,related_name="pat",default=True)
     current_date=models.DateField(auto_now_add=True) 
-    records=models.TextField(null=True, blank=True) 
+    records=models.FileField(null=True, blank=True) 
                              
 class complaint(models.Model):
     complaint=models.TextField(blank=True, null=True)
