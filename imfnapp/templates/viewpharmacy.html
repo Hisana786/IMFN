@@ -1,0 +1,23 @@
+{% extends 'patindex.html' %}
+{% block content %}
+<html>
+    <body>
+        <table class="table table-striped">
+            <tr>
+                <th>Pharmacy</th>
+                <th>Contact No</th>
+            </tr>
+            <tr>
+                {% for pharma in pharma %}
+                <td>{{pharma.Pharmacy_id}}</td>
+                <td>{{pharma.contact_no}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Pharmacy</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

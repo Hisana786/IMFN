@@ -29,7 +29,7 @@ class ambulance(models.Model):
     Driver_Name = models.CharField(max_length=30)
     Login_id = models.ForeignKey(login, on_delete=models.CASCADE, null=True, blank=True)
     hospital_id = models.ForeignKey("hospital", on_delete=models.CASCADE, null=True, blank=True)
-    availability_status = models.IntegerField(default=0) 
+    availability_status = models.IntegerField(default=1) 
 
 
 

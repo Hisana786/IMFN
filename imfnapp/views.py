@@ -443,6 +443,8 @@ def save_location(request):
 
         )
         location.save()
+        amb.availability_status=0
+        amb.save()
 
         return JsonResponse({"status": "success"})
     
@@ -480,7 +482,7 @@ def complete_transfer(request,id):
     c.complete_status=1
     c.save()
     abc=c.amb_login_id
-    abc.availability_status=0
+    abc.availability_status=1
     abc.save()
     messages.success(request,"Transfer Completed")
     return redirect('ambulance_home')
@@ -756,6 +758,12 @@ def hospital_approve(request, id):
             doc.login_id.status = 1
             doc.login_id.save()
 
+        # Approve all Pharmacys linked to this hospital
+        Pharmacys = pharmacy.objects.filter(hos_id=hos)
+        for phar in Pharmacys:
+            phar.Login_id.status = 1
+            phar.Login_id.save()    
+
         messages.success(request, f"{hos.Hospital_Name} and related accounts approved.")
     except hospital.DoesNotExist:
         messages.error(request, "Hospital not found.")
@@ -780,6 +788,13 @@ def hospital_rejection(request, id):
             doc.login_id.status = 2
             doc.login_id.save()
 
+        # Reject all Pharmacys linked to this hospital
+        Pharmacys = pharmacy.objects.filter(hos_id=hosp)
+        for phar in Pharmacys:
+            phar.Login_id.status = 2
+            phar.Login_id.save()
+    
+
         messages.error(request, f"{hosp.Hospital_Name} and related accounts rejected.")
     except hospital.DoesNotExist:
         messages.error(request, "Hospital not found.")
@@ -792,6 +807,13 @@ def doctor_view_record(request):
     hos=docs.hospital_login_id
     pats=transferpatient.objects.filter(to_hospital=hos)
     return render(request,'viewrecord.html',{'pats':pats})
+
+def view_pharmacy(request):
+    hospital_id=request.session.get('hospital_id')
+    hoss=get_object_or_404(hospital,Login_id=hospital_id)
+    pharma=pharmacy.objects.filter(hos_id=hoss)
+    return render(request,'viewpharmacy.html',{'pharma':pharma})
+
 
 
 

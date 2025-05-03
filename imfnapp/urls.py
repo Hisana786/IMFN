@@ -80,6 +80,7 @@ urlpatterns= [
     path('hospital_approve/<int:id>/',views.hospital_approve,name='hospital_approve'),
     path('hospital_rejection/<int:id>/',views.hospital_rejection,name='hospital_rejection'),
     path('doctor_view_record',views.doctor_view_record,name='doctor_view_record'),
+    path('view_pharmacy/',views.view_pharmacy,name='view_pharmacy'),
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
 

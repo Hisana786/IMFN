@@ -14,17 +14,10 @@
     <tr>
       <td>{{pat.pat_id}}</td>
       <td>{{pat.from_hospital}}</td> 
-      <td>
-        {% if pat.records %}
-        <a href="{{pat.records.url}}">Download</a>
-        {% else %}
-        No File
-        {% endif %}
-
-      </td>
+      <td>{{pat.records}}</td>
     </tr>
     {% empty %}
-    <tr><td colspan="3">No Transfers Found</td></tr>
+    <tr><td colspan="3">No Transfer Found</td></tr>
     {% endfor %}
   </tbody>
 </table>
